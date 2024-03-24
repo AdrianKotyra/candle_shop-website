@@ -1,0 +1,59 @@
+.email-top {
+    position: relative;
+    background: url("../css/newsletter2.jpg");
+    height: 500px;
+}
+.email_text{
+    color: white;
+}
+.email-top button {
+    border-radius: 50px;
+    cursor: pointer;
+    color: white;
+    border: none;
+    padding: 20px 40px;
+    background-color: #3D405B;
+}
+.text_cotainer_top {
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.text_cotainer_bottom {
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.text_cotainer_top p {
+    font-size: 1.4rem;
+    color: black;
+     
+    text-align: center;
+}
+.email-footer {
+    position: relative;
+    background-color: #ffffff;
+    height: 300px;
+}
+.text_cotainer_top button {
+    font-size: 1.4rem;
+}
+.email_text_code {
+    font-size: 1.4rem;
+    color: black;
+     
+    text-align: center;
+    
+ 
+}
+.code {
+    border-radius: 50px;
+    padding: 20px 40px;
+    color: white;
+    background-color: #3D405B;
+    font-size: 2rem;
+} 
