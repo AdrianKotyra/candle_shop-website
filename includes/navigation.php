@@ -106,7 +106,8 @@
                 
                      
                             <div class="text-drop-profile-name confidential check-out-link">  
-                            <p>Check out</p>
+                                <a href="checkout.php"> <p>Check out</p></a>
+                           
                             </div>
                 
                         </div>

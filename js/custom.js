@@ -354,21 +354,21 @@ function displayModal(buttonTriggers) {
      
         const modalContainer = document.querySelector(".modal_content_to_be_injected_from_js");
         let modalAddProductCheckOut = ` <div class="add_product_window">
-        <h3>Item added to basket</h3>
+        <h3>Add item to your basket</h3>
         <div class="item_container">
             
-            <img src="./imgs/2.jpg" alt="">
+            <img class="add_to_basket_modal_img" src="${elementImage}" alt="">
             <div class="product_desc_price_modal">
-                <p>item desc</p>
+                <p>${elementName}</p>
                 
-                <p>price</p>
+                <p> <strong> price ${elementPrice}£ </strong> </p>
             </div>
           
 
         </div>
       
 
-        <button class="check_out_add_prod_window_button">Check out</button>
+        <button class="check_out_add_prod_window_button">add to basket</button>
         
 
 
@@ -693,7 +693,7 @@ function displayModal(buttonTriggers) {
         triggerAddProductButtons.forEach(AddProductButton=>AddProductButton.addEventListener("click", function(){
       
             modalSize.style.width="40%";
-            modalSize.style.height="50%";
+            modalSize.style.height="60%";
             modalContainer.innerHTML = modalAddProductCheckOut; 
                
             
@@ -710,6 +710,14 @@ function displayModal(buttonTriggers) {
                         console.log(test.trim())
                         updateProductsCounterBasket() 
                         renderBasketProducts()
+                    
+                        // resize modal to origin afer check out window
+                        modalSize.style.width="70%";
+                        modalSize.style.height="90%";
+                        // close window after sending ajax products
+                        modal_window = document.querySelector(".modal_window");
+                        body.style.overflow="scroll";
+                        modal_window.style.display="none";
                     },
                     error: function(xhr, status, error) {
                         console.error("Error fetching products:", error);
@@ -739,7 +747,12 @@ function displayModal(buttonTriggers) {
 
     
 }
+// ------------------------------------------------------------------------------------------------------------------------
 
+function login_profile_colour_change(){
+const profile_login_top_nav_text = document.querySelector(".login_basket_profile_container p");
+profile_login_top_nav_text.style.colour="#F2CC8F";
+}
 // ------------------------------------------------------------------------------------------------------------------------
 
 function displayNobileLogin() {

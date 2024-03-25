@@ -22,11 +22,17 @@
                 $display_basket_products_name = mysqli_query($conn, $sql);
                 while($row = mysqli_fetch_array($display_basket_products_name)) {
                     $candle_name =  $row["product_name"];
+                    $candle_img =  $row["product_image"];
                 }
 
             echo 
             "<div class='text-drop-container products_basket_row_container'>
-                    <p>$candle_name </p>    <p>$value </p>
+                    <img class='image_basket_product' src='$candle_img'> 
+                    <div> 
+                        <p>$candle_name </p>    
+                        <p>$value </p>
+                    </div>
+                   
                 </div>";
                 
             }
@@ -90,6 +96,7 @@
                 $_SESSION["user_logged"] = true;
                 $_SESSION["user_login"] = $name;
                 $_SESSION["user_password"] = $password;
+            
 
             
             } else {

@@ -2,11 +2,12 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-5 col-xs-12 about-company">
-      <h2>The Niche Candles <br>@AdrianKotyra</h2>
+      <h2>The Niche Candles</h2>
       <p class="pr-5 text-white-50">Discover Our Niche Candle Collection and More</p>
 
       <p><a href="#"><i class="fa fa-facebook-square mr-1"></i></a><a href="#"><i class="fa fa-linkedin-square"></i></a></p>
       <img src="./imgs/logo_tester2.png" alt="">
+      <h2>@AdrianKotyra</h2>
     </div>
     <div class="col-lg-3 col-xs-12 links">
       <h4 class="mt-lg-0 mt-sm-3">Links</h4>
