@@ -38,7 +38,7 @@
         <div class="video_container sub_video_container">
         
         
-          <img src="./imgs/pngaaa.com-143606.png" alt="">
+     
         
         </div>
         <span class="anchor_scroll_video">
@@ -67,11 +67,14 @@
             
         
         ?>
-     
+        <div class='alert alert-secondary col-lg-6 text-center mx-auto' role='alert'>
+            for demo type admin/admin or register
+        </div>
         <form class="form_container col-lg-6" action="login.php" method="POST">
            
             <div class="title_container">
                 <p class="title">Login to your Account</p>
+          
                 <span class="subtitle">Get started with our app, just login in to your account and enjoy the experience.</span>
             </div>
             <br>

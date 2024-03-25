@@ -342,7 +342,7 @@ right_button.addEventListener("click", function() {
 function displayModal(buttonTriggers) {
    
     buttonTriggers.forEach(element=>element.addEventListener("click", function(){
-     
+        let modalSize = document.querySelector(".modal_container");
         modal_window = document.querySelector(".modal_window");
         modal_window.style.display="block";
         const body = document.querySelector("body");
@@ -353,7 +353,26 @@ function displayModal(buttonTriggers) {
         let elementDescription = element.getAttribute("data-desc");
      
         const modalContainer = document.querySelector(".modal_content_to_be_injected_from_js");
+        let modalAddProductCheckOut = ` <div class="add_product_window">
+        <h3>Item added to basket</h3>
+        <div class="item_container">
+            
+            <img src="./imgs/2.jpg" alt="">
+            <div class="product_desc_price_modal">
+                <p>item desc</p>
+                
+                <p>price</p>
+            </div>
+          
 
+        </div>
+      
+
+        <button class="check_out_add_prod_window_button">Check out</button>
+        
+
+
+        </div>`;
      
         let mainThreeColsFirst = ` <div class="row">
         <h3 class="modal_title_3_cols"> Artisan Craftsmanship</h3>
@@ -571,7 +590,7 @@ function displayModal(buttonTriggers) {
                     <a href="${window.location.pathname +"?add_product="+ elementId}"></a>
                        
                    
-                    <button class="button buy_product_button">Buy</button>
+                    <button class="button buy_product_button">Add product</button>
                  
                 </div>
             </div>
@@ -593,6 +612,10 @@ function displayModal(buttonTriggers) {
         close_modal_cross.addEventListener("click", function(){
             modal_window = document.querySelector(".modal_window");
             modal_window.style.display="none";
+            // resize modal to origin afer check out window
+            modalSize.style.width="70%";
+            modalSize.style.height="90%";
+
             body.style.overflow="scroll";
         })
         body.style.overflow="hidden";
@@ -612,9 +635,12 @@ function displayModal(buttonTriggers) {
             modalContainer.innerHTML = mainThreeColsthird; 
            
         }
+       
         else {
             const back_img = document.querySelector(".back_img")
-           
+              // resize modal to origin afer check out window
+            modalSize.style.width="70%";
+            modalSize.style.height="90%";
             modalContainer.innerHTML = productsGrid;
 
 
@@ -628,31 +654,80 @@ function displayModal(buttonTriggers) {
         displayModal(modal_trigger_button_three_cols_1);
 
 
-
-
     
-        
       
-    
-        const buy_product_button = document.querySelectorAll(".buy_product_button");
-        
-        buy_product_button.forEach(element => {
-            element.addEventListener("click", function(){
-                $.ajax({
-                url: 'basket_products.php',
+        function renderBasketProducts() {
+            $.ajax({
+                url: 'render_basket_products.php',
                 data: {elementId:elementId},
                 type: 'POST',
-                success: function(test) {
-                    console.log(test.trim())
+                success: function(basketProducts) {
+                    $(".render_basket").html(basketProducts);
         
                 },
                 error: function(xhr, status, error) {
                     console.error("Error fetching products:", error);
                 }
-                })
-                
             })
-        });
+        }
+        
+        function updateProductsCounterBasket() {
+            $.ajax({
+                url: 'get_user_products_number_basket.php',
+                data: {elementId:elementId},
+                type: 'POST',
+                success: function(basketNumberProducts) {
+                    $(".products_counter_basket").html(basketNumberProducts);
+        
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error fetching products:", error);
+                }
+            })
+        }
+
+
+       
+
+        const triggerAddProductButtons = document.querySelectorAll(".buy_product_button");
+        triggerAddProductButtons.forEach(AddProductButton=>AddProductButton.addEventListener("click", function(){
+      
+            modalSize.style.width="40%";
+            modalSize.style.height="50%";
+            modalContainer.innerHTML = modalAddProductCheckOut; 
+               
+            
+            const buy_product_button = document.querySelectorAll(".check_out_add_prod_window_button");
+            buy_product_button.forEach(element => {
+                element.addEventListener("click", function(){
+
+                    // ADD PRODUCTS TO THE BASKET SENDING AJAX ID PRODUCT 
+                    $.ajax({
+                    url: 'basket_products.php',
+                    data: {elementId:elementId},
+                    type: 'POST',
+                    success: function(test) {
+                        console.log(test.trim())
+                        updateProductsCounterBasket() 
+                        renderBasketProducts()
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error fetching products:", error);
+                    }
+                    })
+    
+                    // UPDATE PRODUCTS NUMBER ON BASKET
+                   
+        
+    
+    
+                    
+                })
+            });
+
+
+        }))
+       
         
        
     }))
@@ -811,6 +886,8 @@ function showWhenLoggedin() {
     const profileElements = document.querySelectorAll(".confidential-hide-logged-in");
     profileElements.forEach(ele=>ele.style.display="inherit");
 }
+
+
 
 
 

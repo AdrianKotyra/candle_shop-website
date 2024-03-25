@@ -88,19 +88,28 @@
              
                 
                 <div class="box basket_box confidential trigger-drop-basket">
+                    
+                    <p class="products_counter_basket"><?php products_in_basket_counter() ?></p>
                     <img class="icon" src="./svgs/solid/basket.svg" alt="">
                     <p class="trigger-drop">Basket</p>
 
 
                     <div class="drop-down drop-down-basket">
                        
-                      <div class="text-drop basket_drop">
-                            <div class="text-drop-profile-name confidential">  
+                        <div class="text-drop basket_drop">
+                            <div class="text-drop-profile-name confidential basket-title-check-out">  
                             <p>Items added</p>
                             </div>
+                            <div class="render_basket">
+                                <?php Render_basket_products()?>
+                            </div>
                 
-                          <?php Render_basket_products()?>
-                      </div>
+                     
+                            <div class="text-drop-profile-name confidential check-out-link">  
+                            <p>Check out</p>
+                            </div>
+                
+                        </div>
                      
 
                     </div>

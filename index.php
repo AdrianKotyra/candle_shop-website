@@ -34,6 +34,8 @@
    
     </div>
     <div class="section homeInfo_3_cols"> 
+        <h3 class="header">Why Choose Us?</h3>
+
         <div class="row">
             <div class="col-md-4 col_more modal_trigger_button_three_cols_1">
                 <button class="read_more_3_cols_span button">click read more</button>

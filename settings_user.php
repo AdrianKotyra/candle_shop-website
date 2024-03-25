@@ -39,7 +39,7 @@
       <div class="video_container sub_video_container">
       
       
-        <img src="./imgs/pngaaa.com-143606.png" alt="">
+ 
       
       </div>
     
