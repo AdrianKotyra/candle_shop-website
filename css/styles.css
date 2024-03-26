@@ -194,12 +194,18 @@ display: block;
   position: relative;
   flex-direction: column;
 }
+.price_quantity {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 .item_container img {
   object-fit: cover;
   width: 40%;
   height: 150px;
 }
 .check_out_add_prod_window_button {
+  border-radius: 30px;
   color: white;
   background-color: var(--elements_gold);
   border: none;

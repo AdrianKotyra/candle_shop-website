@@ -1,8 +1,5 @@
 <?php session_start()?>
 
-<?php include("./includes/data.php")?>
-<?php include("./includes/functions.php");?>
-
 <?php 
 if(isset($_POST["elementId"])) {
     $product_id = $_POST["elementId"];

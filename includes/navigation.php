@@ -125,4 +125,7 @@
 
 
 </nav>
+
 <?php ?>
+
+<?php include("./includes/loader.php")?>

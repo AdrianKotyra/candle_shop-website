@@ -131,7 +131,7 @@
 
 
     </div>
-  
+ 
     <div class="section newsletter">
       
         <div class="col-50 news_box">
@@ -156,7 +156,7 @@
 
        
     </div>
-   
+    <?php include("./includes/loader.php")?>
  
     <div class="section products">
         <h3 class="header">Our Candles</h3>

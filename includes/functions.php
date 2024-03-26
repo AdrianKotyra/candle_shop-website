@@ -23,15 +23,21 @@
                 while($row = mysqli_fetch_array($display_basket_products_name)) {
                     $candle_name =  $row["product_name"];
                     $candle_img =  $row["product_image"];
+                    $candle_price=  $row["product_price"];
                 }
 
             echo 
             "<div class='text-drop-container products_basket_row_container'>
                     <img class='image_basket_product' src='$candle_img'> 
                     <div> 
-                        <p>$candle_name </p>    
-                        <p>$value </p>
+                    <p>$candle_name </p>    
+                    <div class='price_quantity'> 
+                        <p> price: $candle_price £ </p> 
+                        <p>quantity: $value </p> 
+    
                     </div>
+                   
+                </div>
                    
                 </div>";
                 
