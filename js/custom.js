@@ -353,6 +353,8 @@ function displayModal(buttonTriggers) {
         let elementDescription = element.getAttribute("data-desc");
      
         const modalContainer = document.querySelector(".modal_content_to_be_injected_from_js");
+
+
         let modalAddProductCheckOut = ` <div class="add_product_window">
         <h3>Add item to your basket</h3>
         <div class="item_container">
@@ -361,7 +363,8 @@ function displayModal(buttonTriggers) {
             <div class="product_desc_price_modal">
                 <p>${elementName}</p>
                 
-                <p> <strong> price ${elementPrice}£ </strong> </p>
+                <p> <strong> Price: ${elementPrice}£ </strong> </p>
+               
             </div>
           
 
@@ -373,7 +376,8 @@ function displayModal(buttonTriggers) {
 
 
         </div>`;
-     
+
+
         let mainThreeColsFirst = ` <div class="row">
         <h3 class="modal_title_3_cols"> Artisan Craftsmanship</h3>
         <div class="col-lg-12 col-product_main_3_desc">
@@ -653,7 +657,20 @@ function displayModal(buttonTriggers) {
         // displayModal(firstImagesOnTop);
         // const modal_trigger_button_three_cols_1 = document.querySelectorAll(".modal_trigger_button_three_cols_1");
         // displayModal(modal_trigger_button_three_cols_1);
-
+        function renderSumTotalProducts() {
+            $.ajax({
+                url: 'render_total_sum_all_products_ajax.php',
+                data: {elementId:elementId},
+                type: 'POST',
+                success: function(total) {
+                    $(".total_all_products").html(total);
+        
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error fetching products:", error);
+                }
+            })
+        }
 
     
       
@@ -664,7 +681,8 @@ function displayModal(buttonTriggers) {
                 type: 'POST',
                 success: function(basketProducts) {
                     $(".render_basket").html(basketProducts);
-        
+                    const firstImagesOnTop = document.querySelectorAll(".modal_trigger_button");
+                    displayModal(firstImagesOnTop);
                 },
                 error: function(xhr, status, error) {
                     console.error("Error fetching products:", error);
@@ -696,7 +714,9 @@ function displayModal(buttonTriggers) {
             modalSize.style.width="40%";
             modalSize.style.height="60%";
             modalContainer.innerHTML = modalAddProductCheckOut; 
-               
+      
+            
+            
             
             const buy_product_button = document.querySelectorAll(".check_out_add_prod_window_button");
             buy_product_button.forEach(element => {
@@ -710,8 +730,7 @@ function displayModal(buttonTriggers) {
                     type: 'POST',
                     success: function(test) {
                         renderBasketProducts()
-                        console.log(test.trim())
-                      
+                        renderSumTotalProducts()
                         updateProductsCounterBasket() 
                        
                      

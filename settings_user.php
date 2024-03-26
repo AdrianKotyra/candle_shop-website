@@ -66,26 +66,26 @@
                   <label class="block mb-2 text-sm font-medium text-gray-900">
                   
                   </label>
-                  <input required name="name" placeholder="" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" id="username" type="text">
+                  <input required name="name" placeholder="<?php echo $_SESSION["user_name"];?>" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" id="username" type="text">
                 </div>
                 <div>
                   <label class="block mb-2 text-sm font-medium text-gray-900">
                     Your Lastname
                   </label>
-                  <input placeholder="" required name="lastname"  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" id="username" type="text">
+                  <input placeholder="<?php echo $_SESSION["user_lastname"];?>" required name="lastname"  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" id="username" type="text">
                 </div>
                 <div>
                   <label class="block mb-2 text-sm font-medium text-gray-900">
                     Your email
                   </label>
-                  <input placeholder="" required name="email"  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" id="username" type="text">
+                  <input placeholder="<?php echo $_SESSION["user_login"];?>" required name="email"  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" id="username" type="text">
                 </div>
                 
                 <div>
                   <label class="block mb-2 text-sm font-medium text-gray-900">
                     Password
                   </label>
-                  <input placeholder=""  required name="password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" id="password" type="password">
+                  <input placeholder="<?php echo $_SESSION["user_password"];?>"  required name="password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" id="password" type="password">
                 </div>
                 
 

@@ -103,8 +103,15 @@
                             <div class="render_basket">
                                 <?php Render_basket_products()?>
                             </div>
-                
-                     
+                            
+                            <div class="render_total_all_products">
+                                <div class='total_price_container_all'> 
+                                    <p> Total: </p> 
+                                    <p class="total_all_products"><?php echo $_SESSION["sum_all_products"]; ?> £</p> 
+
+                                </div>
+                            </div>
+                            
                             <div class="text-drop-profile-name confidential check-out-link">  
                                 <a href="checkout.php"> <p>Check out</p></a>
                            

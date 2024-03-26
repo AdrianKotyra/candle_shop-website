@@ -1,3 +1,12 @@
+
+.checkout_img {
+  object-fit: cover;
+    height: 100%;
+    width: 100%;
+   
+}
+
+
 .master-container {
     display: grid;
     grid-template-columns: auto;
@@ -5,7 +14,7 @@
   }
   
   .card {
-    width: 400px;
+    width: 600px;
     background: #FFFFFF;
     box-shadow: 0px 187px 75px rgba(0, 0, 0, 0.01), 0px 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09), 0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
   }
@@ -35,6 +44,8 @@
   }
   
   .cart .products .product {
+    padding: 10px;
+    height: 100px;
     display: grid;
     grid-template-columns: 60px 1fr 80px 1fr;
     gap: 10px;
@@ -341,7 +352,7 @@
 
 .purchase--btn {
   height: 55px;
-  background: #F2F2F2;
+  background: #3D405B;
   border-radius: 11px;
   border: 0;
   outline: none;
@@ -489,14 +500,14 @@ background-color: transparent;
 
 .purchase--btn {
 height: 55px;
-background: #F2F2F2;
+background: #3D405B;
 border-radius: 11px;
 border: 0;
 outline: none;
 color: #ffffff;
 font-size: 13px;
 font-weight: 700;
-background: linear-gradient(180deg, #363636 0%, #1B1B1B 50%, #000000 100%);
+background: #3D405B;
 box-shadow: 0px 0px 0px 0px #FFFFFF, 0px 0px 0px 0px #000000;
 transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
 }

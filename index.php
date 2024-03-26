@@ -33,6 +33,16 @@
    <?php include("./includes/about_section.php")?>
    
     </div>
+    <!-- <label for="quantity_product_input"><strong> Quantity: </label>
+    <div class="minus_plus minus"> 
+    <span class="minus_plus_ele"> -</span>
+    
+    <input type="text" class="quantityValue" name="quantity_product_input"> 
+        
+        <span class="minus_plus_ele plus"> +</span>
+    
+    
+    </div> -->
     <div class="section homeInfo_3_cols"> 
         <h3 class="header">Why Choose Us?</h3>
 
@@ -156,7 +166,7 @@
 
        
     </div>
-    <?php include("./includes/loader.php")?>
+  
  
     <div class="section products">
         <h3 class="header">Our Candles</h3>

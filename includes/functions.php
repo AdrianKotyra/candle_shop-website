@@ -3,6 +3,54 @@
 
 <?php 
 
+function Render_checkout_products(){
+    global $conn;
+    if(isset($_SESSION["user_basket"]) && !empty($_SESSION["user_basket"])) { 
+        $basket_ids = implode(',', array_map('intval', array_keys($_SESSION["user_basket"])));
+        $sql = "SELECT * FROM products WHERE id IN ($basket_ids) ORDER BY FIELD(id, $basket_ids) DESC";
+        $display_basket_products_name = mysqli_query($conn, $sql);
+
+        $candle_total_price_all_products = 0; // Initialize the total price variable outside the loop
+
+        while($row = mysqli_fetch_array($display_basket_products_name)) {
+            $candle_id =  $row["id"];
+            $candle_name =  $row["product_name"];
+            $candle_img =  $row["product_image"];
+            $candle_price =  $row["product_price"];
+            $candle_desc =  $row["product_desc"];
+            $quantity = $_SESSION["user_basket"][$candle_id]; // Retrieve quantity from session
+            
+            $candle_total_price = $candle_price * $quantity;
+            $candle_total_price_all_products += $candle_total_price;
+
+            echo "<div class='product'>
+            <img class='checkout_img' src='$candle_img' alt=''>
+            <div>
+              <span>$candle_name </span>
+              <p>Extra Spicy</p>
+              <p>No mayo</p>
+            </div>
+            <div>
+              <button>
+                <svg fill='none' viewBox='0 0 24 24' height='14' width='14' xmlns='http://www.w3.org/2000/svg'>
+                  <path stroke-linejoin='round' stroke-linecap='round' stroke-width='2.5' stroke='#47484b' d='M20 12L4 12'></path>
+                </svg>
+              </button>
+              <label> $quantity</label>
+              <button>
+                <svg fill='none' viewBox='0 0 24 24' height='14' width='14' xmlns='http://www.w3.org/2000/svg'>
+                  <path stroke-linejoin='round' stroke-linecap='round' stroke-width='2.5' stroke='#47484b' d='M12 4V20M20 12H4'></path>
+                </svg>
+              </button>
+            </div>
+            <label class='price small'>$candle_price £</label>
+          </div>";
+        }
+
+        $_SESSION["sum_all_products"] = $candle_total_price_all_products; // Set the session variable for total price
+    }
+}
+
     function products_in_basket_counter() {
         global $conn;
         if($_SESSION["user_basket"] !=null) { 
@@ -15,35 +63,53 @@
     }
     function Render_basket_products(){
         global $conn;
-        if($_SESSION["user_basket"] !=null) { 
-            if(count($_SESSION["user_basket"])>=1) {
-            foreach ($_SESSION["user_basket"] as $key => $value) {
-                $sql = "SELECT * FROM products where id = '{$key}'"; 
-                $display_basket_products_name = mysqli_query($conn, $sql);
-                while($row = mysqli_fetch_array($display_basket_products_name)) {
-                    $candle_name =  $row["product_name"];
-                    $candle_img =  $row["product_image"];
-                    $candle_price=  $row["product_price"];
-                }
-
-            echo 
-            "<div class='text-drop-container products_basket_row_container'>
+        if(isset($_SESSION["user_basket"]) && !empty($_SESSION["user_basket"])) { 
+            $basket_ids = implode(',', array_map('intval', array_keys($_SESSION["user_basket"])));
+            $sql = "SELECT * FROM products WHERE id IN ($basket_ids) ORDER BY FIELD(id, $basket_ids) DESC";
+            $display_basket_products_name = mysqli_query($conn, $sql);
+    
+            $candle_total_price_all_products = 0; // Initialize the total price variable outside the loop
+    
+            while($row = mysqli_fetch_array($display_basket_products_name)) {
+                $candle_id =  $row["id"];
+                $candle_name =  $row["product_name"];
+                $candle_img =  $row["product_image"];
+                $candle_price =  $row["product_price"];
+                $candle_desc =  $row["product_desc"];
+                $quantity = $_SESSION["user_basket"][$candle_id]; // Retrieve quantity from session
+                
+                $candle_total_price = $candle_price * $quantity;
+                $candle_total_price_all_products += $candle_total_price;
+    
+                echo "<div class='text-drop-container products_basket_row_container modal_trigger_button'   
+                    data-id='$candle_id'
+                    data-name='$candle_name'
+                    data-image='$candle_img'
+                    data-price='$candle_price'
+                    data-desc='$candle_desc'>
+    
                     <img class='image_basket_product' src='$candle_img'> 
                     <div> 
                     <p>$candle_name </p>    
                     <div class='price_quantity'> 
                         <p> price: $candle_price £ </p> 
-                        <p>quantity: $value </p> 
+                        <p>quantity: $quantity </p> 
     
                     </div>
-                   
+                    <div class='total_price_container'> 
+                        <p> total: </p> 
+                        <p>$candle_total_price £</p> 
+                    </div>
+    
                 </div>
                    
                 </div>";
-                
             }
-        }}
+    
+            $_SESSION["sum_all_products"] = $candle_total_price_all_products; // Set the session variable for total price
+        }
     }
+    
 
 
 
@@ -152,6 +218,7 @@
             $_SESSION["user_name"] =  null;
             $_SESSION["user_lastname"] = null;
             $_SESSION["user_password"] = null;
+            $_SESSION["sum_all_products"] = null;
         }
     }
         
