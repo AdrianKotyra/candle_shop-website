@@ -17,8 +17,8 @@ function BrowserProducts() {
                             let data_trimmed = data.trim();
                             const message_container = $(".results_search");
         
-                         
-                            if( data_trimmed==="not Found") {
+                           
+                            if(data_trimmed==="not Found") {
                                 message_container.html(data)
                                 message_container.css('display', 'block');
                                 setTimeout(() => {
@@ -355,6 +355,23 @@ function displayModal(buttonTriggers) {
         const modalContainer = document.querySelector(".modal_content_to_be_injected_from_js");
 
 
+        function changeActivePagination() {
+            const modal_pagination_links = document.querySelectorAll(".pagination-link p");
+            modal_pagination_links.forEach(link => {
+                link.addEventListener("click", function(event) {
+                    // Remove the class from all links
+                    modal_pagination_links.forEach(link => {
+                        link.classList.remove("active_pagination");
+                    });
+                    setTimeout(() => {
+                        event.target.classList.add("active_pagination");
+                    }, 1);
+                    // Add the class to the clicked link
+                   
+                });
+            });
+        }
+        
         let modalAddProductCheckOut = ` <div class="add_product_window">
         <h3>Add item to your basket</h3>
         <div class="item_container">
@@ -372,10 +389,23 @@ function displayModal(buttonTriggers) {
       
 
         <button class="check_out_add_prod_window_button">add to basket</button>
+        <div class='containerMessageAlert'>
+            <div class='alert alert-warning col-lg-12 text-center mx-auto' role='alert'>
+               You need to be logged in to add this to your basket. 
+            
+
+            </div>
+            <a href="login.php">
+                <div class='login_button_modal alert alert-info col-lg-12 text-center mx-auto' role='alert'>
+                <strong>Login here</strong>
+                
+                </div
+            </a>
+      
+        </div>
         
-
-
-        </div>`;
+        "
+        `;
 
 
         let mainThreeColsFirst = ` <div class="row">
@@ -558,6 +588,30 @@ function displayModal(buttonTriggers) {
         }
        
         else {
+            
+    
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             let productsGrid = `
             <div class="grid_products">
                 <div class="modal_search">
@@ -579,69 +633,41 @@ function displayModal(buttonTriggers) {
                 
                     <div class="row no-gutters no-pad  products_row_products products_row_products_modal">
                     
-                
-                    ${  
-                        $.ajax({
-                        url: 'get_products.php',
-                        type: 'POST',
-                        success: function(get_products) {
-                            if (!get_products.error) {
-                                var products = JSON.parse(get_products);
-                           
-                                // Assuming get_products is an array of products
-                                var productsHTML = products.map(product => {
-                                    return `
-                                    <div class="product_container_products modal_trigger_button"
-                                        data-id="${product.id}" 
-                                        data-name="${product.name}" 
-                                        data-image="${product.image}" 
-                                        data-price="${product.price}" 
-                                        data-desc="${product.desc}"
-                                        >
-                                     
-                                       
-                                        <span class="add_product_span"> 
-                                            
-                                            <div class="img_buy">
-                                            </div>
-                                            <p>add</p> 
-                                       
-                                        </span>
-                                        <img src="${product.image}">
-                                        <div class="product_description_box">
-                                            <p> <strong>${product.name}</strong></p>
-                                            <span>${product.price + "£"}</span>
-                                        </div>
-                                    </div>
-    
-                                    `;
-                                })
-                                
-                                // Append the generated HTML to the products container
-                                $('.products_row_products_modal').html(productsHTML);
-                                const firstImagesOnTop = document.querySelectorAll(".modal_trigger_button");
-                                displayModal(firstImagesOnTop, event);
-                              
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            console.error("Error fetching products:", error);
-                        }
-                    })
-                    }
-                
                     </div>
-                    
+                  
                 
+                  
                 
                 </div>
-    
+                <div class="pagination_container_inject"> </div>
+                </div>
     
     
             </div>
     
+          
+            
     
             `
+            $.ajax({
+                url: 'get_products_pagination.php',
+                type: 'POST',
+                success: function(get_pagination) {
+                    if (get_pagination) {
+                   
+                        
+                     
+                        $('.pagination_container_inject').html(get_pagination);
+                     
+                        changeActivePagination()
+                        
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error fetching products:", error);
+                }
+                })
+                
             const back_img = document.querySelector(".back_img")
               // resize modal to origin afer check out window
             modalSize.style.width="70%";
@@ -652,11 +678,51 @@ function displayModal(buttonTriggers) {
            
         }
         BrowserProducts()
-       
-        // const firstImagesOnTop = document.querySelectorAll(".modal_trigger_button");
-        // displayModal(firstImagesOnTop);
-        // const modal_trigger_button_three_cols_1 = document.querySelectorAll(".modal_trigger_button_three_cols_1");
-        // displayModal(modal_trigger_button_three_cols_1);
+        
+            $.ajax({
+            url: 'get_products.php',
+            type: 'POST',
+            success: function(get_products) {
+                if (get_products) {
+                  
+                    
+                    $('.products_row_products_modal').html(get_products);
+                    const firstImagesOnTop = document.querySelectorAll(".modal_trigger_button");
+                    const pagintations = document.querySelectorAll(".pagination-link");
+                    pagintations.forEach(paggination=>paggination.addEventListener("click", function(target){
+                        
+                        let page_number_coressponding_to_pagination_data_attribute = this.getAttribute("data-page");
+                    
+                        $.ajax({
+                            url: 'get_products_ajax_modal.php',
+                            type: 'POST',
+                            data: {pageNumber:page_number_coressponding_to_pagination_data_attribute},
+                            success: function(get_products_ajax) {
+                                if (get_products_ajax) {
+                                    $('.products_row_products_modal').html(get_products_ajax);
+                                    const firstImagesOnTop = document.querySelectorAll(".modal_trigger_button");
+                                    displayModal(firstImagesOnTop, event);
+                                    
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                console.error("Error fetching products:", error);
+                            }
+                        })
+
+                        
+                        
+                    }))
+                    displayModal(firstImagesOnTop, event);
+                  
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("Error fetching products:", error);
+            }
+        })
+    
+
         function renderSumTotalProducts() {
             $.ajax({
                 url: 'render_total_sum_all_products_ajax.php',
@@ -671,7 +737,23 @@ function displayModal(buttonTriggers) {
                 }
             })
         }
-
+        function renderPurchaseNotification() {
+                $.ajax({
+                    url: 'purchase_render_product.php',
+                    data: {elementId:elementId},
+                    type: 'POST',
+                    success: function(basketProducts) {
+                        $(".purchase_item_animation_container").html(basketProducts);
+                        $(".purchase_item_animation_container").css("display", "block")
+                        setTimeout(() => {
+                            $(".purchase_item_animation_container").css("display", "none")
+                        }, 4000);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error fetching products:", error);
+                    }
+                })
+            }
     
       
         function renderBasketProducts() {
@@ -681,8 +763,7 @@ function displayModal(buttonTriggers) {
                 type: 'POST',
                 success: function(basketProducts) {
                     $(".render_basket").html(basketProducts);
-                    const firstImagesOnTop = document.querySelectorAll(".modal_trigger_button");
-                    displayModal(firstImagesOnTop);
+                    
                 },
                 error: function(xhr, status, error) {
                     console.error("Error fetching products:", error);
@@ -712,7 +793,7 @@ function displayModal(buttonTriggers) {
         triggerAddProductButtons.forEach(AddProductButton=>AddProductButton.addEventListener("click", function(){
       
             modalSize.style.width="40%";
-            modalSize.style.height="60%";
+            modalSize.style.height="auto";
             modalContainer.innerHTML = modalAddProductCheckOut; 
       
             
@@ -729,20 +810,29 @@ function displayModal(buttonTriggers) {
                     data: {elementId:elementId},
                     type: 'POST',
                     success: function(test) {
-                        renderBasketProducts()
-                        renderSumTotalProducts()
-                        updateProductsCounterBasket() 
-                       
-                     
-                     
-                        loader.style.display="none";
-                        // resize modal to origin afer check out window
-                        modalSize.style.width="70%";
-                        modalSize.style.height="90%";
-                        // close window after sending ajax products
-                        modal_window = document.querySelector(".modal_window");
-                        body.style.overflow="scroll";
-                        modal_window.style.display="none";
+                        if(test.trim()==="not_logged") {
+                            const messageContainer = document.querySelector(".containerMessageAlert");
+                            messageContainer.style.display="block";
+                            loader.style.display="none";
+                        }
+                        else {
+                            renderBasketProducts()
+                            renderSumTotalProducts()
+                            updateProductsCounterBasket() 
+                            renderPurchaseNotification()
+                         
+                         
+                            loader.style.display="none";
+                            // resize modal to origin afer check out window
+                            modalSize.style.width="70%";
+                            modalSize.style.height="90%";
+                            // close window after sending ajax products
+                            modal_window = document.querySelector(".modal_window");
+                            body.style.overflow="scroll";
+                            modal_window.style.display="none";
+                            messageContainer.style.display="none";
+                        }
+                    
                     },
                     error: function(xhr, status, error) {
                         console.error("Error fetching products:", error);

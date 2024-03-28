@@ -2,10 +2,11 @@
 <?php include("./includes/data.php")?>
 
 <body>
+    
    <?php include("./includes/modal_window.php")?>
    
    <?php include("./includes/navigation.php")?>
-
+  
    
     <div class="mobile_nav_container">
         <div class="link link_mobile login_mobile">log in
@@ -166,7 +167,9 @@
 
        
     </div>
-  
+   
+    
+    
  
     <div class="section products">
         <h3 class="header">Our Candles</h3>
@@ -279,6 +282,8 @@
     <?php include("./includes/contact_section.php")?>
 
     <?php include("./includes/footer.php")?>
-
+    <div class="purchase_item_animation_container">
+        dsdsadsa
+    </div>
 </body>
 </html>

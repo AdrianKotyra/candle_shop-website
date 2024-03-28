@@ -4,13 +4,13 @@
          
         
             <div class="inputs_container_contact">
-                <form action="" class="form_contact"></form>
-                    <input type="text" name="name" placeholder="Name">
-                    <input type="text" name="email"  placeholder="Email">
-                    <textarea name="message" id="" cols="30" rows="10" placeholder="MESSAGE">
+                <form action="contact.php" class="form_contact" method="POST">
+                    <input required type="text" name="name" placeholder="Name">
+                    <input requiredtype="text" name="email"  placeholder="Email">
+                    <textarea required name="message" id="" cols="30" rows="10" placeholder="MESSAGE">
 
                     </textarea>
-                    <button class="button">Message</button>
+                    <button name="send_message" class="button">Message</button>
                 </form>
             </div>
 
@@ -34,6 +34,9 @@
 
 
         </div>
+        <?php contact_msg()?>
+
+
 
      
      

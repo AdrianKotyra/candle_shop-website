@@ -5,13 +5,7 @@
 
 
 global $conn;
-    if(isset($_POST["pageNumber"])) {
-        $page_number_ajax = $_POST["pageNumber"];
-    }
-    else {
-        $page_number_ajax =1;
-    }
-
+    $page_number_ajax = $_POST["pageNumber"];
     
     $sql = "SELECT * from products";
     $result_initial = mysqli_query($conn, $sql);

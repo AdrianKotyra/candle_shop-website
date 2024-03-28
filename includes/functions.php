@@ -43,7 +43,7 @@ function Render_checkout_products(){
                 </svg>
               </button>
             </div>
-            <label class='price small'>$candle_price £</label>
+            <label class='price small'>$candle_total_price £</label>
           </div>";
         }
 
@@ -51,215 +51,222 @@ function Render_checkout_products(){
     }
 }
 
-    function products_in_basket_counter() {
-        global $conn;
-        if($_SESSION["user_basket"] !=null) { 
-            if(count($_SESSION["user_basket"])>=1) {
-                echo count($_SESSION["user_basket"]);
-            }
-    
+function products_in_basket_counter() {
+    global $conn;
+    if($_SESSION["user_basket"] !=null) { 
+        if(count($_SESSION["user_basket"])>=1) {
+            echo count($_SESSION["user_basket"]);
         }
-      
+
     }
-    function Render_basket_products(){
-        global $conn;
-        if(isset($_SESSION["user_basket"]) && !empty($_SESSION["user_basket"])) { 
-            $basket_ids = implode(',', array_map('intval', array_keys($_SESSION["user_basket"])));
-            $sql = "SELECT * FROM products WHERE id IN ($basket_ids) ORDER BY FIELD(id, $basket_ids) DESC";
-            $display_basket_products_name = mysqli_query($conn, $sql);
     
-            $candle_total_price_all_products = 0; // Initialize the total price variable outside the loop
-    
-            while($row = mysqli_fetch_array($display_basket_products_name)) {
-                $candle_id =  $row["id"];
-                $candle_name =  $row["product_name"];
-                $candle_img =  $row["product_image"];
-                $candle_price =  $row["product_price"];
-                $candle_desc =  $row["product_desc"];
-                $quantity = $_SESSION["user_basket"][$candle_id]; // Retrieve quantity from session
-                
-                $candle_total_price = $candle_price * $quantity;
-                $candle_total_price_all_products += $candle_total_price;
-    
-                echo "<div class='text-drop-container products_basket_row_container modal_trigger_button'   
-                    data-id='$candle_id'
-                    data-name='$candle_name'
-                    data-image='$candle_img'
-                    data-price='$candle_price'
-                    data-desc='$candle_desc'>
-    
-                    <img class='image_basket_product' src='$candle_img'> 
-                    <div> 
-                    <p>$candle_name </p>    
-                    <div class='price_quantity'> 
-                        <p> price: $candle_price £ </p> 
-                        <p>quantity: $quantity </p> 
-    
-                    </div>
-                    <div class='total_price_container'> 
-                        <p> total: </p> 
-                        <p>$candle_total_price £</p> 
-                    </div>
-    
+}
+function Render_basket_products(){
+    global $conn;
+    if(isset($_SESSION["user_basket"]) && !empty($_SESSION["user_basket"])) { 
+        $basket_ids = implode(',', array_map('intval', array_keys($_SESSION["user_basket"])));
+        $sql = "SELECT * FROM products WHERE id IN ($basket_ids) ORDER BY FIELD(id, $basket_ids) DESC";
+        $display_basket_products_name = mysqli_query($conn, $sql);
+
+        $candle_total_price_all_products = 0; // Initialize the total price variable outside the loop
+
+        while($row = mysqli_fetch_array($display_basket_products_name)) {
+            $candle_id =  $row["id"];
+            $candle_name =  $row["product_name"];
+            $candle_img =  $row["product_image"];
+            $candle_price =  $row["product_price"];
+            $candle_desc =  $row["product_desc"];
+            $quantity = $_SESSION["user_basket"][$candle_id]; // Retrieve quantity from session
+            
+            $candle_total_price = $candle_price * $quantity;
+            $candle_total_price_all_products += $candle_total_price;
+
+            echo "<div class='text-drop-container products_basket_row_container modal_trigger_button'   
+                data-id='$candle_id'
+                data-name='$candle_name'
+                data-image='$candle_img'
+                data-price='$candle_price'
+                data-desc='$candle_desc'>
+
+                <img class='image_basket_product' src='$candle_img'> 
+                <div> 
+                <p>$candle_name </p>    
+                <div class='price_quantity'> 
+                    <p> price: $candle_price £ </p> 
+                    <p>quantity: $quantity </p> 
+
                 </div>
-                   
-                </div>";
-            }
+                <div class='total_price_container'> 
+                    <p> total: </p> 
+                    <p>$candle_total_price £</p> 
+                </div>
+
+            </div>
+                
+            </div>";
+        }
+
+        $_SESSION["sum_all_products"] = $candle_total_price_all_products; // Set the session variable for total price
+    }
+}
+
+
+
+
+function user_not_logged_back_to_home(){
+    $_SESSION["user_logged"] === false? header("Location:index.php") : null;
+}
+function init() {
+    if(empty($_SESSION["user_logged"])) {
+        $_SESSION["user_logged"] = false;
+        $_SESSION["user_login"] = null;
+        $_SESSION["user_name"] =  null;
+        $_SESSION["user_lastname"] = null;
+        $_SESSION["user_password"] = null;
+    }
     
-            $_SESSION["sum_all_products"] = $candle_total_price_all_products; // Set the session variable for total price
-        }
+}
+function if_is_not_null_display_it($object){
+    if($object !== null) {
+        echo $object;
+        
+    } else {
+        null;
     }
     
+}
 
-
-
-    function user_not_logged_back_to_home(){
-        $_SESSION["user_logged"] === false? header("Location:index.php") : null;
+function get_user_details_from_sessions(){
+    global $conn;
+    $_SESSION["user_login"] = $name;
+    $_SESSION["user_password"] = $password;
+    $query_login = "SELECT * from accounts_candles where user_email = '{$name}' and user_password='{$password}'";
+    $find_user = mysqli_query($conn, $query_login);
+    while($row = mysqli_fetch_array($find_user)) {
+        $user_name =  $row["user_name"];
+        $user_lastname =  $row["user_lastname"];
+        $user_email =  $row["user_email"];
+        $user_password =  $row["user_password"];
+        $user_details_array = [$user_name,  $user_lastname, $user_email, $user_password];
+        return  $user_details_array;
+    
     }
-    function init() {
-        if(empty($_SESSION["user_logged"])) {
-            $_SESSION["user_logged"] = false;
-            $_SESSION["user_login"] = null;
-            $_SESSION["user_name"] =  null;
-            $_SESSION["user_lastname"] = null;
-            $_SESSION["user_password"] = null;
-        }
-     
-    }
-    function if_is_not_null_display_it($object){
-        if($object !== null) {
-            echo $object;
-           
-        } else {
-            null;
-        }
-      
-    }
+}
 
-    function get_user_details_from_sessions(){
+
+function log_in() {
+    if(isset($_POST["submit_login"])) {
         global $conn;
-        $_SESSION["user_login"] = $name;
-        $_SESSION["user_password"] = $password;
+        $name = trim($_POST["input-name"]);
+        $password= trim($_POST["input-passowrd"]);
         $query_login = "SELECT * from accounts_candles where user_email = '{$name}' and user_password='{$password}'";
         $find_user = mysqli_query($conn, $query_login);
-        while($row = mysqli_fetch_array($find_user)) {
-            $user_name =  $row["user_name"];
-            $user_lastname =  $row["user_lastname"];
-            $user_email =  $row["user_email"];
-            $user_password =  $row["user_password"];
-            $user_details_array = [$user_name,  $user_lastname, $user_email, $user_password];
-            return  $user_details_array;
-      
-        }
-    }
-
-
-    function log_in() {
-        if(isset($_POST["submit_login"])) {
-            global $conn;
-            $name = trim($_POST["input-name"]);
-            $password= trim($_POST["input-passowrd"]);
-            $query_login = "SELECT * from accounts_candles where user_email = '{$name}' and user_password='{$password}'";
-            $find_user = mysqli_query($conn, $query_login);
-            if(mysqli_num_rows($find_user)>=1) {
-                
-                echo "<div class='alert alert-success col-lg-6 text-center mx-auto' role='alert'>
-                You have successufully logged in  " .$_SESSION['user_name']. ". </div>";
-                $_SESSION["user_logged"] = true;
-                $_SESSION["user_login"] = $name;
-                $_SESSION["user_password"] = $password;
+        if(mysqli_num_rows($find_user)>=1) {
             
-
-            
-            } else {
-                echo "<div class='alert alert-warning col-lg-6 text-center mx-auto' role='alert'>
-                wrong credentials
-                </div>";
-            }
+            echo "<div class='alert alert-success col-lg-6 text-center mx-auto' role='alert'>
+            You have successufully logged in  " .$_SESSION['user_name']. ". </div>";
+            $_SESSION["user_logged"] = true;
+            $_SESSION["user_login"] = $name;
+            $_SESSION["user_password"] = $password;
         
 
+        
+        } else {
+            echo "<div class='alert alert-warning col-lg-6 text-center mx-auto' role='alert'>
+            wrong credentials
+            </div>";
         }
-    }
-    function login_sessions(){
-
-        if(isset($_POST["submit_login"])) {
-            global $conn;
-            $name = trim($_POST["input-name"]);
-            $password= trim($_POST["input-passowrd"]);
-            $query_login = "SELECT * from accounts_candles where user_email = '{$name}' and user_password='{$password}'";
-
-            $find_user = mysqli_query($conn, $query_login);
-            if($find_user!==null) {
-                while($row = mysqli_fetch_array($find_user)) {
-                    $user_name =  $row["user_name"];
-                    $user_lastname =  $row["user_lastname"];
-                    $user_email =  $row["user_email"];}
-                    $user_password =  $row["user_password"];
-                }
     
-                if(mysqli_num_rows($find_user)>=1) {
-                    $_SESSION["user_logged"] = true;
-                    $_SESSION["user_basket"] = [];
-                    $_SESSION["user_login"] = $user_email;
-                    $_SESSION["user_name"] =  $user_name;
-                    $_SESSION["user_lastname"] =  $user_lastname;
-                    $_SESSION["user_password"] = $password;
-                }
-            }
-           
-        
+
     }
-    
-    function log_out(){
-        if(isset($_GET["log_out"])) {
-            $_SESSION["user_logged"] = false;
-            $_SESSION["user_basket"] = null;
-            $_SESSION["user_login"] = null;
-            $_SESSION["user_name"] =  null;
-            $_SESSION["user_lastname"] = null;
-            $_SESSION["user_password"] = null;
-            $_SESSION["sum_all_products"] = null;
-        }
-    }
-        
-    function display_all_products_in_grid() {
+}
+function login_sessions(){
+
+    if(isset($_POST["submit_login"])) {
         global $conn;
-        $sql = "SELECT * FROM products"; 
-        $result = mysqli_query($conn, $sql); 
-        while($row = mysqli_fetch_array($result)) {
-            $candle_name =  $row["product_name"];
-            $candle_description =  $row["product_desc"];
-            $candle_image =  $row["product_image"];
-            $candle_price =  $row["product_price"];
-            $candle_id = $row["id"];
-    
-    
+        $name = trim($_POST["input-name"]);
+        $password= trim($_POST["input-passowrd"]);
+        $query_login = "SELECT * from accounts_candles where user_email = '{$name}' and user_password='{$password}'";
+
+        $find_user = mysqli_query($conn, $query_login);
+        if($find_user!==null) {
+            while($row = mysqli_fetch_array($find_user)) {
+                $user_name =  $row["user_name"];
+                $user_lastname =  $row["user_lastname"];
+                $user_email =  $row["user_email"];}
+                $user_password =  $row["user_password"];
+            }
+
+            if(mysqli_num_rows($find_user)>=1) {
+                $_SESSION["user_logged"] = true;
+                $_SESSION["user_basket"] = [];
+                $_SESSION["user_login"] = $user_email;
+                $_SESSION["user_name"] =  $user_name;
+                $_SESSION["user_lastname"] =  $user_lastname;
+                $_SESSION["user_password"] = $password;
+            }
         
-        ?>
+    }
+}
+        
     
 
-        <div class="product_container_products modal_trigger_button"
-          
-            data-id="<?php echo $candle_id;?>" 
-            data-name="<?php echo $candle_name;?>" 
-            data-image="<?php echo $candle_image;?>" 
-            data-price="<?php echo $candle_price;?>" 
-            data-desc="<?php echo $candle_description;?>" >
-            <span class="add_product_span"> 
-                <div class="img_buy">
-                </div>
-                <p>add</p> 
-               
-            </span>
-            <img src="<?php echo $candle_image;?>">
-            <div class="product_description_box">
-                <p> <strong><?php echo $candle_name;?></strong></p>
-                <span><?php echo $candle_price. " £";?></span>
+
+function log_out(){
+    if(isset($_GET["log_out"])) {
+        $_SESSION["user_logged"] = false;
+        $_SESSION["user_basket"] = null;
+        $_SESSION["user_login"] = null;
+        $_SESSION["user_name"] =  null;
+        $_SESSION["user_lastname"] = null;
+        $_SESSION["user_password"] = null;
+        $_SESSION["sum_all_products"] = null;
+    }
+}
+
+    
+    
+
+
+    
+function display_all_products_in_grid() {
+    global $conn;
+    $sql = "SELECT * FROM products"; 
+    $result = mysqli_query($conn, $sql); 
+    while($row = mysqli_fetch_array($result)) {
+        $candle_name =  $row["product_name"];
+        $candle_description =  $row["product_desc"];
+        $candle_image =  $row["product_image"];
+        $candle_price =  $row["product_price"];
+        $candle_id = $row["id"];
+
+
+    
+    ?>
+
+
+    <div class="product_container_products modal_trigger_button"
+        
+        data-id="<?php echo $candle_id;?>" 
+        data-name="<?php echo $candle_name;?>" 
+        data-image="<?php echo $candle_image;?>" 
+        data-price="<?php echo $candle_price;?>" 
+        data-desc="<?php echo $candle_description;?>" >
+        <span class="add_product_span"> 
+            <div class="img_buy">
             </div>
+            <p>add</p> 
+            
+        </span>
+        <img src="<?php echo $candle_image;?>">
+        <div class="product_description_box">
+            <p> <strong><?php echo $candle_name;?></strong></p>
+            <span><?php echo $candle_price. " £";?></span>
         </div>
-          
-     
-    <?php } }?> 
+    </div>
+        
+    
+<?php } }?> 
 
 
 <?php 
@@ -471,7 +478,161 @@ function ValidateUserREgistration() {
 
 
 
+     
+function display_all_products_in_grid_pagination($page_name) {
+    global $conn;
+    $sql = "SELECT * from products";
+    $result_initial = mysqli_query($conn, $sql);
+    $total_rows = mysqli_num_rows($result_initial);
+    $limit_products = 16;
+    $total_pages = ceil($total_rows/$limit_products);
+    if (!isset ($_GET['page']) ) {  
+        $_GET['page']=1;
+        $page_number = 1;  
 
-?>
+    } else {  
+
+        $page_number = $_GET['page'];  
+
+    }    
+    $initial_page = ($page_number-1) * $limit_products;   
+    $getQuery = "SELECT * FROM products LIMIT " . $initial_page . ',' . $limit_products;  
+    $result = mysqli_query($conn, $getQuery);    
+      
+
+
+
+    while($row = mysqli_fetch_array($result)) {
+        $candle_name =  $row["product_name"];
+        $candle_description =  $row["product_desc"];
+        $candle_image =  $row["product_image"];
+        $candle_price =  $row["product_price"];
+        $candle_id = $row["id"];
+
+
+    
+    ?>
+
+
+    <div class="product_container_products modal_trigger_button"
+      
+        data-id="<?php echo $candle_id;?>" 
+        data-name="<?php echo $candle_name;?>" 
+        data-image="<?php echo $candle_image;?>" 
+        data-price="<?php echo $candle_price;?>" 
+        data-desc="<?php echo $candle_description;?>" >
+        <span class="add_product_span"> 
+            <div class="img_buy">
+            </div>
+            <p>add</p> 
+           
+        </span>
+        <img src="<?php echo $candle_image;?>">
+        <div class="product_description_box">
+            <p> <strong><?php echo $candle_name;?></strong></p>
+            <span><?php echo $candle_price. " £";?></span>
+        </div>
+
+
+
+
+    </div>
+   
+<?php } 
+echo "<div class = 'pagination_container'>";
+for($page_number = 1; $page_number<= $total_pages; $page_number++) { 
+  
+    if(intval($_GET["page"])===intval($page_number)) {
+        $active_paggination = "active_pagination";
+        echo "<a class='$active_paggination pagination-link' href = '$page_name?page=" . $page_number . "'> <p>" . $page_number . " </p> </a>";  
+    }
+    else {
+       
+        $active_paggination = "pagination-link";
+   
+        echo "<a class='$active_paggination' href = ' $page_name?page=" . $page_number . "'> <p>" . $page_number . " </p> </a>";  
+    }
+    
+   
+    
+    }  
+    echo "</div>";
+}
+
+
+
+
+function contact_msg(){
+    if(isset($_POST["send_message"]))
+        
+        if($_SESSION["user_logged"] === true) {
+            $mail = "adriankotyra@yahoo.com";
+
+            $name = $_POST["name"];
+            $email_user = $_POST["email"];
+            $message = $_POST["message"];
+            $headers = "MIME-Version: 1.0" . "\r\n";
+            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+            $subject = "from $email_user";
+            mail($mail,  $subject, $message,  $headers);
+          
+
+
+
+            echo "<div class='alert alert-success col-lg-6 text-center mx-auto' role='alert'>
+            Thank you for your message <strong> $_SESSION[user_name] </strong></div>";
+
+
+        } 
+        else {
+            echo "
+            <div class='alert alert-warning col-lg-6 text-center mx-auto' role='alert'>
+                Please log in to send a message.
+            </div>";
+        }
+        
+      
+   
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+?> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
    
+
+
