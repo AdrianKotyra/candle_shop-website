@@ -31,7 +31,7 @@
    
       
       
-        <div class="video_container sub_video_container">
+        <div class="video_container sub_video_container" id="container_top_about_bg">
     
         <!-- <img src="./imgs/pngaaa.com-143606.png" alt=""> -->
         </div>

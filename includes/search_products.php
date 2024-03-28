@@ -58,7 +58,7 @@ if(!empty($search)) {
 
 
 } else {
-    display_all_products_in_grid_pagination();
+    display_all_products_in_grid_pagination("products.php");
 }
 
 

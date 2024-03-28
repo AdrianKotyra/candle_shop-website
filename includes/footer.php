@@ -63,3 +63,6 @@ else {
   echo "<script>showWhenLoggedin()</script>";
 }
 ?>
+<div class="purchase_item_animation_container">
+      
+</div>

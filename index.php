@@ -282,8 +282,6 @@
     <?php include("./includes/contact_section.php")?>
 
     <?php include("./includes/footer.php")?>
-    <div class="purchase_item_animation_container">
-        dsdsadsa
-    </div>
+ 
 </body>
 </html>

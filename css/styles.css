@@ -25,6 +25,9 @@
   
 
 }
+body {
+  overflow-x: hidden !important;
+}
 
 .basket_box {
   position: relative;
@@ -45,7 +48,7 @@
   flex-direction: column;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: end;
   max-width: 350px;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -77,6 +80,23 @@
 .radio-input:checked + .radio-tile .radio-label {
   color: #2260ff;
 }
+#container_top_login_bg {
+  background-position: bottom 100px;
+  background-image: url("../imgs/bgtop (3).jpg");
+}
+
+#container_top_registration_bg {
+  background-size: cover;
+  background-position: center;
+  background-image: url("../imgs/bgtop (2).jpg");
+}
+#container_top_contact_bg {
+  background-position: center;
+  background-image: url("../imgs/bgtop (1).jpg");
+}
+#container_top_about_bg {
+ background-image: url("../imgs/bgtop (6).jpg");
+}
 .product_container_products {
   box-shadow: var(--shadow_box_img_container);
 }
@@ -96,6 +116,7 @@
   background-color: var(--elements);
 
 }
+
 .purchase_img {
   margin-top: 0 !important;
   height: 70px !important;
@@ -109,21 +130,28 @@
   transform: scale(1);
   opacity: 1;
 }
-
+.search_bar_container * {
+  width: 200px;
+}
 .radio-tile {
+  width: 200px;
+}
+.radio-tile {
+  background-color: #f3f3f4;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 120px;
-  min-height: 80px;
+
+  min-height: 60px;
   border-radius: 0.5rem;
-  border: 2px solid #b5bfd9;
-  background-color: #fff;
+
+  
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   transition: 0.15s ease;
   cursor: pointer;
   position: relative;
+  color: rgb(0, 0, 0) !important;
 }
 
 .radio-tile:before {
@@ -158,10 +186,10 @@
 }
 
 .radio-label {
-  color: #707070;
+  color: black;
   transition: 0.375s ease;
   text-align: center;
-  font-size: 13px;
+  font-size: 1rem
 }
 
 .radio-input {
@@ -2421,6 +2449,52 @@ input::placeholder{
     top : 79px !important;
     z-index: 333;
   }
+  .group_search {
+    display: flex;
+    line-height: 28px;
+    align-items: center;
+    position: relative;
+    max-width: 190px;
+   }
+   
+   .input_search {
+    width: 100%;
+    height: 40px;
+    line-height: 28px;
+    padding: 0 1rem;
+    padding-left: 2.5rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    outline: none;
+    background-color: #f3f3f4;
+    color: #0d0c22;
+    transition: .3s ease;
+   }
+   
+   .input_search::placeholder {
+    color: #9e9ea7;
+   }
+   
+   .input_search:focus, input:hover {
+    outline: none;
+    border-color: rgba(234,76,137,0.4);
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+   }
+   
+   .icon_search {
+    position: absolute;
+    left: 1rem;
+    fill: #9e9ea7;
+    width: 1rem;
+    height: 1rem;
+   }
+   
+   
+   
+   
+   
+   
   .container_search {
     
     background: linear-gradient(135deg, rgb(179, 208, 253) 0%, rgb(164, 202, 248) 100%);

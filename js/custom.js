@@ -1,4 +1,20 @@
-
+function changeActivePagination() {
+    const modal_pagination_links = document.querySelectorAll(".pagination-link p");
+    modal_pagination_links.forEach(link => {
+        link.addEventListener("click", function(event) {
+            // Remove the class from all links
+            modal_pagination_links.forEach(link => {
+                link.classList.remove("active_pagination");
+            });
+            setTimeout(() => {
+                event.target.classList.add("active_pagination");
+            }, 1);
+            // Add the class to the clicked link
+            
+        });
+    });
+    }
+// ------------------------------------------------------------------------------------------------------------------------
 
 function BrowserProducts() {
     // READING AND DISPLAYING DATA
@@ -74,7 +90,29 @@ hamburger ? hamburger.addEventListener("click",showMobile
 showMobile()
 
 
+function renderPagination(){
+    
+    $.ajax({
+        url: 'get_products_pagination.php',
+        type: 'POST',
+        success: function(get_pagination) {
+            if (get_pagination) {
 
+                $('.pagination_container_inject').html(get_pagination);
+             
+                changeActivePagination()
+                setTimeout(() => {
+                    const firstImagesOnTop = document.querySelectorAll(".modal_trigger_button");
+                    displayModal(firstImagesOnTop, event);
+                }, 500);
+
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("Error fetching products:", error);
+        }
+    })
+}
 // ------------------------------------------------------------------------------------------------------------------------
 
 
@@ -339,6 +377,7 @@ right_button.addEventListener("click", function() {
 })
 }
 // ------------------------------------------------------------------------------------------------------------------------
+
 function displayModal(buttonTriggers) {
    
     buttonTriggers.forEach(element=>element.addEventListener("click", function(){
@@ -355,23 +394,6 @@ function displayModal(buttonTriggers) {
         const modalContainer = document.querySelector(".modal_content_to_be_injected_from_js");
 
 
-        function changeActivePagination() {
-            const modal_pagination_links = document.querySelectorAll(".pagination-link p");
-            modal_pagination_links.forEach(link => {
-                link.addEventListener("click", function(event) {
-                    // Remove the class from all links
-                    modal_pagination_links.forEach(link => {
-                        link.classList.remove("active_pagination");
-                    });
-                    setTimeout(() => {
-                        event.target.classList.add("active_pagination");
-                    }, 1);
-                    // Add the class to the clicked link
-                   
-                });
-            });
-        }
-        
         let modalAddProductCheckOut = ` <div class="add_product_window">
         <h3>Add item to your basket</h3>
         <div class="item_container">
@@ -584,34 +606,8 @@ function displayModal(buttonTriggers) {
         }
         else if(element.classList.contains("modal_trigger_button_three_cols_3")){ 
             modalContainer.innerHTML = mainThreeColsthird; 
-           
         }
-       
         else {
-            
-    
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             let productsGrid = `
             <div class="grid_products">
                 <div class="modal_search">
@@ -628,100 +624,76 @@ function displayModal(buttonTriggers) {
                     </div>
                     <div class="results_search results_modal"></div>
                 </div>
-              
                 <div class="products_container_products">
-                
                     <div class="row no-gutters no-pad  products_row_products products_row_products_modal">
-                    
-                    </div>
-                  
-                
-                  
-                
+                    </div>                
                 </div>
                 <div class="pagination_container_inject"> </div>
                 </div>
-    
-    
             </div>
-    
-          
-            
-    
             `
+            renderPagination()
+ 
+            // resize modal to origin afer check out window
+            modalSize.style.width="70%";
+            modalSize.style.height="90%";
+            modalContainer.innerHTML = productsGrid;
+
             $.ajax({
-                url: 'get_products_pagination.php',
+                url: 'get_products.php',
                 type: 'POST',
-                success: function(get_pagination) {
-                    if (get_pagination) {
-                   
+                success: function(get_products) {
+                    if (get_products) {
+                      
                         
-                     
-                        $('.pagination_container_inject').html(get_pagination);
-                     
-                        changeActivePagination()
-                        
+                        $('.products_row_products_modal').html(get_products);
+                 
+                      
+                        setTimeout(() => {
+                            const pagintations = document.querySelectorAll(".pagination-link");
+                            pagintations.forEach(paggination=>paggination.addEventListener("click", function(target){
+                            
+                                let page_number_coressponding_to_pagination_data_attribute = this.getAttribute("data-page");
+                            
+                                $.ajax({
+                                    url: 'get_products_ajax_modal.php',
+                                    type: 'POST',
+                                    data: {pageNumber:page_number_coressponding_to_pagination_data_attribute},
+                                    success: function(get_products_ajax) {
+                                        if (get_products_ajax) {
+                                            $('.products_row_products_modal').html(get_products_ajax);
+                                            const firstImagesOnTop = document.querySelectorAll(".modal_trigger_button");
+                                            displayModal(firstImagesOnTop, event);
+                                            
+                                        }
+                                    },
+                                    error: function(xhr, status, error) {
+                                        console.error("Error fetching products:", error);
+                                    }
+                                    
+                                })
+        
+                                
+                                
+                            }))
+                            displayModal(firstImagesOnTop, event);
+                        }, 1000);
+                       
+                      
                     }
                 },
                 error: function(xhr, status, error) {
                     console.error("Error fetching products:", error);
                 }
-                })
-                
-            const back_img = document.querySelector(".back_img")
-              // resize modal to origin afer check out window
-            modalSize.style.width="70%";
-            modalSize.style.height="90%";
-            modalContainer.innerHTML = productsGrid;
-
-
+            })
            
         }
         BrowserProducts()
         
-            $.ajax({
-            url: 'get_products.php',
-            type: 'POST',
-            success: function(get_products) {
-                if (get_products) {
-                  
-                    
-                    $('.products_row_products_modal').html(get_products);
-                    const firstImagesOnTop = document.querySelectorAll(".modal_trigger_button");
-                    const pagintations = document.querySelectorAll(".pagination-link");
-                    pagintations.forEach(paggination=>paggination.addEventListener("click", function(target){
-                        
-                        let page_number_coressponding_to_pagination_data_attribute = this.getAttribute("data-page");
-                    
-                        $.ajax({
-                            url: 'get_products_ajax_modal.php',
-                            type: 'POST',
-                            data: {pageNumber:page_number_coressponding_to_pagination_data_attribute},
-                            success: function(get_products_ajax) {
-                                if (get_products_ajax) {
-                                    $('.products_row_products_modal').html(get_products_ajax);
-                                    const firstImagesOnTop = document.querySelectorAll(".modal_trigger_button");
-                                    displayModal(firstImagesOnTop, event);
-                                    
-                                }
-                            },
-                            error: function(xhr, status, error) {
-                                console.error("Error fetching products:", error);
-                            }
-                        })
-
-                        
-                        
-                    }))
-                    displayModal(firstImagesOnTop, event);
-                  
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error("Error fetching products:", error);
-            }
-        })
+         
     
+        
+        
 
         function renderSumTotalProducts() {
             $.ajax({
@@ -1015,9 +987,33 @@ function showWhenLoggedin() {
     profileElements.forEach(ele=>ele.style.display="inherit");
 }
 
+// ------------------------------------------------------------------------------------------------------------------------
+const highest_price_order_button = document.querySelector(".highest_price_order_button");
+    
+function displayHighestPriceOrderProducts(){
+   
 
+}
+// highest_price_order_button.addEventListener("click", function(){
+//     $.ajax({
+//         url: 'get_products_highest_price.php',
+//         type: 'POST',
+//         success: function(get_procuts_highest) {
+//             if (get_procuts_highest) {
 
+//                 $(".products_row_products").html(get_procuts_highest)
+             
+                
+//             }
+//             else {
+//                 alert("fdsfdsfdsfd1111111s")
+             
+//             }
+//         },
+//         error: function(xhr, status, error) {
+//             console.error("Error fetching products:", error);
+//         }
+//     })
+// })
 
-
-// displayOffdropDowns(event)
- 
+// ------------------------------------------------------------------------------------------------------------------------

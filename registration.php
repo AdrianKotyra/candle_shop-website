@@ -26,7 +26,7 @@
     </div>
     
        
-    <div class="video_section sub_video_section">
+    <div class="video_section sub_video_section" >
         <span class="video_text_sub">
             <h3>Registration</h3>
        
@@ -34,7 +34,7 @@
 
     
       
-        <div class="video_container sub_video_container">
+        <div class="video_container sub_video_container" id="container_top_registration_bg">
         
         
 
