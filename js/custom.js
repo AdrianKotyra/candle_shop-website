@@ -860,7 +860,7 @@ function displayModal(buttonTriggers) {
                             renderSumTotalProducts()
                             updateProductsCounterBasket() 
                             renderPurchaseNotification()
-                         
+                            deleteItemsBasket()
                          
                             loader.style.display="none";
                             // resize modal to origin afer check out window
@@ -910,24 +910,6 @@ profile_login_top_nav_text.style.colour="#F2CC8F";
 }
 // ------------------------------------------------------------------------------------------------------------------------
 
-function displayNobileLogin() {
-    const mobile_login_container = document.querySelector(".mobile_login_container");
-    
-    if( mobile_login_container && mobile_login_container.style.display === "none") {
-        mobile_login_container.style.animation="mobileNavAnimationForwards 0.5s forwards"
-        mobile_login_container.style.display = "flex"
-    }
-    else {
-        mobile_login_container?mobile_login_container.style.display = "none" : null
-        
-       
-    }
-   
-}
-const login_mobile = document.querySelector(".login_mobile");
-login_mobile? login_mobile.addEventListener("click", displayNobileLogin) : null
-
-displayNobileLogin()
 
 // ------------------------------------------------------------------------------------------------------------------------
 
@@ -1005,13 +987,48 @@ profileTriggers.forEach(elem=>elem.addEventListener("click", function(){
 
 displayProfileDropDown()
 
-
 // ------------------------------------------------------------------------------------------------------------------------
-
-
+function deleteItemsBasket() {
+    const deleteItemsButton = document.querySelectorAll(".delete-item-icon");
+    deleteItemsButton.forEach(btn => {
+        btn.addEventListener("click", function() {
+            let itemId = btn.getAttribute("data-id");
+            $.ajax({
+                url: 'delete_items_basket.php',
+                type: 'POST',
+                data: {itemId: itemId},
+                success: function(basket) {
+                    if (basket) {
+                        $(".render_basket").html(basket);
+                     
+                        deleteItemsBasket()
+                      
+                      
+                    } $.ajax({
+                        url: 'render_total_sum_all_products_ajax.php',
+                        data: {itemId:itemId},
+                        type: 'POST',
+                        success: function(total) {
+                            $(".total_all_products").html(total);
+                
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error fetching products:", error);
+                        }
+                    })
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error deleting item from basket:", error);
+                }
+            });
+           
+        });
+    });
+}
+deleteItemsBasket()
 const basketTriggers = document.querySelectorAll(".trigger-drop-basket");
 function displayBasketDropDown(event) {
-   
+    
     const profileDropDown = document.querySelector(".drop-down-profile");
     const basketDropDown = document.querySelector(".drop-down-basket");
    
@@ -1019,13 +1036,15 @@ function displayBasketDropDown(event) {
             basketDropDown.style.display="block";
             profileDropDown.style.display="none";
             mobileNav.style.display="none";
+            deleteItemsBasket()
+          
         }
         else {
             basketDropDown.style.display="none";
     
         }
 }
-   
+
         
     
 

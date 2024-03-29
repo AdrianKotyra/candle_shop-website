@@ -2,6 +2,37 @@
 
 
 <?php 
+function renderSum(){
+    
+if($_SESSION["user_basket"] !=null) { 
+  
+    foreach ($_SESSION["user_basket"] as $key => $value) {
+        $sql = "SELECT * FROM products where id = '{$key}'"; 
+        $display_basket_products_name = mysqli_query($conn, $sql);
+        while($row = mysqli_fetch_array($display_basket_products_name)) {
+        
+            $candle_price=  $row["product_price"];
+          
+            // each product sum price
+            $candle_total_price = $candle_price*$value; 
+            // sum of each products sums price
+            $candle_total_price_all_products = $candle_total_price_all_products + $candle_price*$value; 
+             
+        }
+
+     
+        
+    }
+    // $_SESSION["sum_all_products"] = $candle_total_price_all_products;
+    echo 
+    " $candle_total_price_all_products £";
+}
+
+
+
+
+}
+
 
 function Render_checkout_products(){
     global $conn;
@@ -47,7 +78,7 @@ function Render_checkout_products(){
           </div>";
         }
 
-        $_SESSION["sum_all_products"] = $candle_total_price_all_products; // Set the session variable for total price
+        // $_SESSION["sum_all_products"] = $candle_total_price_all_products; // Set the session variable for total price
     }
 }
 
@@ -81,25 +112,29 @@ function Render_basket_products(){
             $candle_total_price = $candle_price * $quantity;
             $candle_total_price_all_products += $candle_total_price;
 
-            echo "<div class='text-drop-container products_basket_row_container '   
-               >
+            echo "<div class='text-drop-container products_basket_row_container ' >
+          
 
                 <img class='image_basket_product modal_trigger_button' src='$candle_img'  
                     data-id='$candle_id'
                     data-name='$candle_name'
                     data-image='$candle_img'
                     data-price='$candle_price'
-                    data-desc='$candle_desc'> 
+                    data-desc='$candle_desc'>
                 <div> 
-                <p>$candle_name </p>    
-                <div class='price_quantity'> 
-                    <p> price: $candle_price £ </p> 
-                    <div class='quantity_container'>
-                    <button class='minus_basket incrementDecrementBasket'> - </button>
-                
-                    <p>quantity: $quantity </p> 
-                    <button class='plus_basket incrementDecrementBasket'> + </button> 
+                <div class='container-basket-items'> 
+                    <img class='delete-item-icon' src='./imgs/bin.png' data-id='$candle_id'>
+                    <p class='basket-product-name' >$candle_name </p>    
+                    <div class='price_quantity'> 
+                        <p> price: $candle_price £ </p> 
+                        <div class='quantity_container'>
+                        <button class='minus_basket incrementDecrementBasket'> - </button>
+                    
+                        <p>quantity: $quantity </p> 
+                        <button class='plus_basket incrementDecrementBasket'> + </button> 
+                    </div> 
                 </div>
+              
               
 
             </div>
@@ -113,7 +148,7 @@ function Render_basket_products(){
             </div>";
         }
 
-        $_SESSION["sum_all_products"] = $candle_total_price_all_products; // Set the session variable for total price
+        // $_SESSION["sum_all_products"] = $candle_total_price_all_products; // Set the session variable for total price
     }
 }
 

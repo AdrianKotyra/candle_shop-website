@@ -3,7 +3,7 @@
 
 <body>
     
-   <?php include("./includes/modal_window.php")?>
+
    
    <?php include("./includes/navigation.php")?>
   
@@ -35,6 +35,7 @@
     
     
     </div> -->
+
     <div class="section homeInfo_3_cols"> 
         <h3 class="header">Why Choose Us?</h3>
 

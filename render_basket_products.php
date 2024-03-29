@@ -23,27 +23,32 @@ if(isset($_SESSION["user_basket"]) && !empty($_SESSION["user_basket"])) {
         
         $candle_total_price = $candle_price * $quantity;
         $candle_total_price_all_products += $candle_total_price;
-
+        $_SESSION["sum_all_products"] = $candle_total_price_all_products;
         echo "<div class='text-drop-container products_basket_row_container '   
            >
 
-            <img class='image_basket_product modal_trigger_button' src='$candle_img'  data-id='$candle_id'
+            <img class='image_basket_product modal_trigger_button' src='$candle_img' 
+            data-id='$candle_id'
             data-name='$candle_name'
             data-image='$candle_img'
             data-price='$candle_price'
             data-desc='$candle_desc'> 
-           
-            <p>$candle_name </p>    
-            <div class='price_quantity'> 
-                <p> price: $candle_price £ </p> 
-                <div class='quantity_container'>
-                <button class='minus_basket incrementDecrementBasket'> - </button>
-               
-                    <p>quantity: $quantity </p> 
-                <button class='plus_basket incrementDecrementBasket'> + </button> 
-                </div>
-              
 
+            <div class='container-basket-items'> 
+                <img class='delete-item-icon' src='./imgs/bin.png' data-id='$candle_id'>
+                <p class='basket-product-name' >$candle_name </p>    
+                
+                <div class='price_quantity'> 
+                    <p> price: $candle_price £ </p> 
+                    <div class='quantity_container'>
+                    <button class='minus_basket incrementDecrementBasket'> - </button>
+                
+                        <p>quantity: $quantity </p> 
+                    <button class='plus_basket incrementDecrementBasket'> + </button> 
+                    </div>
+                
+
+                </div>
             </div>
             <div class='total_price_container'> 
                 <p> total: </p> 
@@ -55,6 +60,8 @@ if(isset($_SESSION["user_basket"]) && !empty($_SESSION["user_basket"])) {
        ";
     }
 
+    
+   
     
 }
 

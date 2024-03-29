@@ -6,13 +6,13 @@
 
   --custom-padding: calc(2% - 40px);
   /* fonts */
-  --font-size-small : 1.1rem;
-  --font-size-medium : 1.2rem;
-  --font-size-bigg : 1.4rem;
+  --font-size-small : 1rem;
+  --font-size-medium : 1.1rem;
+  --font-size-bigg : 1.2rem;
   
-  --font-size-paragraph_text: 1.4rem;
-  --font-size-headers_less: 1.8rem;
-  --font-size-headers: 2.2rem;
+  --font-size-paragraph_text: 1.2rem;
+  --font-size-headers_less: 1.6rem;
+  --font-size-headers: 2rem;
   /* colors */
   --background_colour_green: #81B29A;
   --background_section: #F4F1DE;
@@ -851,11 +851,29 @@ padding-top: 10px;
   text-align: center;
   padding: 20px;
 }
+.container-basket-items {
+  position: relative;
+}
 .drop-down-profile button {
   
   width: 100%;
   padding: 10px !important;
   
+}
+.delete-item-icon {
+    background-repeat:no-repeat;
+     /* right: -20px; */
+     opacity: 70%;
+     /* bottom: 10px; */
+    top: 10px;
+    right: 0;
+     position: absolute;
+ 
+     width: 28px;
+     height: 28px;
+}
+.icon-basket {
+
 }
 .text-drop
 {
@@ -869,7 +887,7 @@ padding-top: 10px;
 .text-drop-container p {
   text-align: center;
   font-weight: 600;
-  padding: 30px;
+  padding: 16px;
 }
 
 .buttons-drop {
@@ -966,6 +984,10 @@ padding-top: 10px;
   justify-content: center;
   align-items: center;
 
+}
+.trigger-drop-basket {
+  display: flex;
+  flex-direction:row;
 }
 .box {
 
@@ -1535,7 +1557,7 @@ color:var(--elements);
 }
 .input_container {
   padding: 10px 20px;
-    border-radius: 50px;
+    
     background-color: white;
     width: 100%;
     justify-content: space-between;
@@ -1887,9 +1909,9 @@ a {
   color: white;
 }
 .news_box {
-    background-color:var(--elements);
+ 
     padding: 20px;
-    border-radius: 50px;
+   
     margin:5%;
 }
 .waves_top_letter {
@@ -1955,7 +1977,7 @@ a {
     position: relative;
     background-image: url("newsletter2.jpg");
 
-    height: 400px;
+    height: 300px;
     /* Specify background image properties */
     background-size: cover; /* Cover the entire section */
     background-position: center; /* Center the background image */
@@ -2763,7 +2785,7 @@ input::placeholder{
     height: 300px;
   }
   
-  .col-50 .paragraph {
+  .col-50 .paragraph, .about_section .header {
     padding-left: 10px;
   }
   .img_container_scale_animation {
@@ -2977,6 +2999,9 @@ input::placeholder{
 
 
 @media only screen and (max-width: 600px) {
+  .img_candles_container {
+    margin-bottom: 50px
+  }
   .drop-down-basket {
     width: 100%;
   }
@@ -3057,6 +3082,30 @@ input::placeholder{
 
 
 @media only screen and (max-width: 500px) {
+  .video_container {
+    height: 50vh;
+  }
+  .homeInfo_3_cols h3 {margin-bottom: 15%;}
+  .read_more_3_cols_span {
+    display: none;
+  }
+  .col_more img {
+    border-radius: 0;
+    padding: 20px 0;
+  }
+  .news_box {
+    padding: 0;
+    margin: 0;
+  }
+  .col_more .text_moreInfo {
+    width: 90%;
+  }
+  .inputs_container_contact textarea {
+    height: 20vh;
+  }
+  .product_more_read_container {
+    display: none;
+  }
    .price_button_container {
     flex-direction: column;
    }
@@ -3130,7 +3179,7 @@ input::placeholder{
   .button, .button, .input_container button, .paragraph button {
   padding: 10px 30px !important;
   height: auto;
-  margin: 10px 0;
+ 
   }
   .inputs_container_contact button {
     width: 100%;

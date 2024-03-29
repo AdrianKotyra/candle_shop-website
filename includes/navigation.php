@@ -87,12 +87,14 @@
                 </div>
              
                 
-                <div class="box basket_box confidential trigger-drop-basket">
-                    
-                    <p class="products_counter_basket"><?php products_in_basket_counter() ?></p>
-                    <img class="icon <?php echo $_SESSION['user_logged']===true? 'active_account_profile_icon' : '';?>"  src="./svgs/solid/basket.svg" alt="">
-                    <p class="trigger-drop <?php echo $_SESSION['user_logged']===true? 'active_account' : '';?>">Basket</p>
+                <div class="box basket_box confidential">
+                    <div class="trigger-drop-basket box">
+                        <p class="products_counter_basket"><?php products_in_basket_counter() ?></p>
+                        <img class="icon <?php echo $_SESSION['user_logged']===true? 'active_account_profile_icon' : '';?>"  src="./svgs/solid/basket.svg" alt="">
+                        <p class="trigger-drop <?php echo $_SESSION['user_logged']===true? 'active_account' : '';?>">Basket</p>
 
+                    </div>
+                  
 
                     <div class="drop-down drop-down-basket">
                        
@@ -107,7 +109,7 @@
                             <div class="render_total_all_products">
                                 <div class='total_price_container_all'> 
                                     <p> Total: </p> 
-                                    <p class="total_all_products"><?php echo $_SESSION["sum_all_products"]; ?> £</p> 
+                                    <p class="total_all_products"> £</p> 
 
                                 </div>
                             </div>

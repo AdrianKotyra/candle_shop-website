@@ -1,3 +1,4 @@
+<?php session_start()?>
 <?php include("./includes/header.php")?>
 <?php include("./includes/data.php")?>
 
@@ -68,7 +69,7 @@
             <span>4.99$</span> -->
           </div>
           <div class="checkout--footer">
-            <label class="price"><sup>$</sup><?php echo $_SESSION["sum_all_products"];?></label>
+            <label class="price"><sup>$</sup><?php  ?></label>
           
           </div>
         </div>
