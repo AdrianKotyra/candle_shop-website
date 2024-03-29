@@ -437,7 +437,14 @@ function displayModal(buttonTriggers) {
                 <p>${elementName}</p>
                 
                 <p> <strong> Price: ${elementPrice}£ </strong> </p>
-               
+                <strong>   <label for="quantity_product"> Quantity </label>   </strong>
+             
+                <div class="quantity_container">
+                    <button class="minus"> - </button>
+                   
+                    <input class="quantity_product"name="quantity_product" value="1" type="number">
+                    <button class="plus"> + </button> 
+                </div>
             </div>
           
 
@@ -804,26 +811,51 @@ function displayModal(buttonTriggers) {
             modalSize.style.height="auto";
             modalContainer.innerHTML = modalAddProductCheckOut; 
       
+            function incrementDecrementQuantity() {
+                let quantityProductValue = document.querySelector(".quantity_product");
+                let buttonPlus = document.querySelector(".plus");
             
+                buttonPlus.addEventListener("click", function() {
+                    let currentValue = parseInt(quantityProductValue.value);
+                    let newValue = currentValue + 1;
+                    quantityProductValue.value = newValue; // Update the value of the input field
+                });
+                let buttonMinus = document.querySelector(".minus");
             
+                buttonMinus.addEventListener("click", function() {
+                    let currentValue = parseInt(quantityProductValue.value);
+                    let newValue = currentValue - 1;
+                    quantityProductValue.value = newValue; // Update the value of the input field
+                });
+              
+
+
+            }
             
+            incrementDecrementQuantity();
+
+      
+       
             const buy_product_button = document.querySelectorAll(".check_out_add_prod_window_button");
             buy_product_button.forEach(element => {
                 element.addEventListener("click", function(){
+                    let quantityProductValue = document.querySelector(".quantity_product").value;
+             
                     const loader = document.querySelector(".loader");
                     loader.style.display="block";
                     // ADD PRODUCTS TO THE BASKET SENDING AJAX ID PRODUCT 
                     $.ajax({
                     url: 'basket_products.php',
-                    data: {elementId:elementId},
+                    data: {elementId:elementId, quantity:quantityProductValue},
                     type: 'POST',
                     success: function(test) {
                         if(test.trim()==="not_logged") {
-                            const messageContainer = document.querySelector(".containerMessageAlert");
+                            let messageContainer = document.querySelector(".containerMessageAlert");
                             messageContainer.style.display="block";
                             loader.style.display="none";
                         }
                         else {
+                            let messageContainer = document.querySelector(".containerMessageAlert");
                             renderBasketProducts()
                             renderSumTotalProducts()
                             updateProductsCounterBasket() 

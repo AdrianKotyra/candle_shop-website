@@ -8,9 +8,12 @@ global $conn;
  
     if(isset($_POST["elementId"])) {
         if(count($_SESSION["user_basket"])>=1) {
-            echo json_encode(count($_SESSION["user_basket"]));
+            foreach ($_SESSION["user_basket"] as $key => $value) {
+                $number +=$value;
+            
+            }
         }
-
+        echo $number;
 
 
     }

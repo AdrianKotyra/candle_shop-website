@@ -932,10 +932,25 @@ padding-top: 10px;
   width: 300px;
  
 }
+.incrementDecrementBasket {
+  font-size: 1.3rem;
+  padding: 10px;
+  border: none;
+  
+  background-color: rgb(255, 255, 255);
+}
 .add_product_span:hover  {
   transition: 0.3s;
   background-color: rgb(255, 255, 255);
 
+}
+.quantity_product {
+  text-align: center;
+}
+.quantity_container {
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
 }
 .render_total_all_products {
   z-index: 3;

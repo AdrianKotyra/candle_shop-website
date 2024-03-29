@@ -81,21 +81,28 @@ function Render_basket_products(){
             $candle_total_price = $candle_price * $quantity;
             $candle_total_price_all_products += $candle_total_price;
 
-            echo "<div class='text-drop-container products_basket_row_container modal_trigger_button'   
-                data-id='$candle_id'
-                data-name='$candle_name'
-                data-image='$candle_img'
-                data-price='$candle_price'
-                data-desc='$candle_desc'>
+            echo "<div class='text-drop-container products_basket_row_container '   
+               >
 
-                <img class='image_basket_product' src='$candle_img'> 
+                <img class='image_basket_product modal_trigger_button' src='$candle_img'  
+                    data-id='$candle_id'
+                    data-name='$candle_name'
+                    data-image='$candle_img'
+                    data-price='$candle_price'
+                    data-desc='$candle_desc'> 
                 <div> 
                 <p>$candle_name </p>    
                 <div class='price_quantity'> 
                     <p> price: $candle_price £ </p> 
+                    <div class='quantity_container'>
+                    <button class='minus_basket incrementDecrementBasket'> - </button>
+                
                     <p>quantity: $quantity </p> 
-
+                    <button class='plus_basket incrementDecrementBasket'> + </button> 
                 </div>
+              
+
+            </div>
                 <div class='total_price_container'> 
                     <p> total: </p> 
                     <p>$candle_total_price £</p> 
