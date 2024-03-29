@@ -2,7 +2,7 @@
         <h3 class="header">Get in touch</h3>
         <div class="contact_container">
          
-        
+            
             <div class="inputs_container_contact">
                 <form action="contact.php" class="form_contact" method="POST">
                     <input required type="text" name="name" placeholder="Name">

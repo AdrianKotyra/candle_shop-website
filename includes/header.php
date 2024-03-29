@@ -21,3 +21,4 @@
     
 
 </head>
+<?php include("./includes/modal_window.php")?>

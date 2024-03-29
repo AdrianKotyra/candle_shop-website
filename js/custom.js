@@ -1,3 +1,35 @@
+
+
+const send_message = document.querySelector(".send_message");
+if(send_message) {
+    send_message.addEventListener("click", function(){
+        let name =   document.querySelector(".input-name-contact").value;
+        let email =   document.querySelector(".input-email-contact").value;
+        let message =   document.querySelector(".input-message-contact").value;
+       
+        let send_message = "send_message";
+        $.ajax({
+            url: './includes/message_form.php',
+            type: 'POST',
+            data: {send_message:send_message, name:name, email:email, message:message },
+            success: function(contact) {
+                if (contact) {
+    
+                    $('.message_send_container_form').html(contact);
+                 
+                   
+    
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("Error fetching products:", error);
+            }})
+    })
+    
+}
+
+
+
 function changeActivePagination() {
     const modal_pagination_links = document.querySelectorAll(".pagination-link p");
     modal_pagination_links.forEach(link => {
@@ -66,16 +98,18 @@ function BrowserProducts() {
 
 const hamburger = document.querySelector(".burger_box");
 var mobileNav = document.querySelector(".mobile_nav_container");
+const profileBasketDrops = document.querySelectorAll(".drop-down");
 function showMobile() {
     if( mobileNav.style.display === "none") {
-        mobileNav.style.animation="mobileNavAnimationForwards 0.5s forwards"
+        mobileNav.style.animation="fadeInAnimationDropdown 0.3s forwards"
         mobileNav.style.display = "block"
+        profileBasketDrops.forEach(dropDown=>dropDown.style.display="none");
     }
     else {
-        mobileNav.style.animation="mobileNavAnimationBackwards 0.5s  forwards"
+        mobileNav.style.animation="fadeInAnimationDropdownBackwards 0.3s forwards"
         setTimeout(() => {
             mobileNav.style.display = "none"
-            mobileNav.style.animation="mobileNavAnimationForwards 0.5s forwards"
+            mobileNav.style.animation="fadeInAnimationDropdown 0.3s forwards"
         }, 501);
       
     }
@@ -735,7 +769,9 @@ function displayModal(buttonTriggers) {
                 type: 'POST',
                 success: function(basketProducts) {
                     $(".render_basket").html(basketProducts);
-                    
+                    const firstImagesOnTop = document.querySelectorAll(".modal_trigger_button");
+                    displayModal(firstImagesOnTop, event);
+                                            
                 },
                 error: function(xhr, status, error) {
                     console.error("Error fetching products:", error);
@@ -914,6 +950,7 @@ displayModal(modal_trigger_button_three_cols_3);
 
 
 const profileTriggers = document.querySelectorAll(".trigger-drop-profile");
+var mobileNav = document.querySelector(".mobile_nav_container");
 function displayProfileDropDown() {
     const basketDropDown = document.querySelector(".drop-down-basket");
     const profileDropDown = document.querySelector(".drop-down-profile");
@@ -921,6 +958,7 @@ function displayProfileDropDown() {
         if(profileDropDown.style.display==="none") {
             profileDropDown.style.display="block";
             basketDropDown.style.display="none";
+            mobileNav.style.display="none";
         }
         else {
             profileDropDown.style.display="none";
@@ -948,6 +986,7 @@ function displayBasketDropDown(event) {
         if(basketDropDown.style.display==="none") {
             basketDropDown.style.display="block";
             profileDropDown.style.display="none";
+            mobileNav.style.display="none";
         }
         else {
             basketDropDown.style.display="none";

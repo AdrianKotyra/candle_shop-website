@@ -9,22 +9,13 @@
   
    
     <div class="mobile_nav_container">
-        <div class="link link_mobile login_mobile">log in
-        </div>
 
-        <div class="mobile_login_container">
-            <input class="name_login" type="text" name="login" placeholder="name">
-            <input type="password" name="password"  placeholder="****">
-            <button class="button button_login login_mobile_button">login</button>
+        <div class="link link_mobile active"><a class="active" href="index.php"> <p class="text_mobile_link">Home</p></a></div>
+        <div class="link link_mobile"><a href="about.php"><p class="text_mobile_link">About</p></a></div>
+        <div class="link link_mobile"><a href="contact.php"><p class="text_mobile_link">Contact</p></a></div>
+        <div class="link link_mobile"><a href="products.php"><p class="text_mobile_link">Products</p></a></div>
+        <div class="link link_mobile "><a href="registration.php"><p class="text_mobile_link">Sing up</p></a></div>
 
-
-        </div>
-        <div class="link link_mobileactive"><a class="active" href="index.php">Home</a></div>
-        <div class="link link_mobile"><a href="about.php">About</a></div>
-        <div class="link link_mobile"><a href="contact.php">Contact</a></div>
-        <div class="link link_mobile"><a href="products.php">Products</a></div>
-        <div class="link link_mobile"><a  href="registration.php">Sing up</a></div>
-       
 
     </div>
     
@@ -190,8 +181,15 @@
                     Read more</span>
                  
                 </div>
-                <div class="img_container_scale_animation img_candles_container">
-                    <img src="./imgs/candles_images/candles_mid (2).jpg" alt="">
+                <div class="img_container_scale_animation img_candles_container modal_trigger_button"   data-id="1" 
+                    data-name="Twilight Embrace Set" 
+                    data-image="./imgs/candles_images/candles_mid (2).jpg" 
+                    data-price="13£"
+                    data-desc="Illuminate your surroundings with the enchanting warmth of our Twilight Embrace Set. 
+                    This duo of exquisite candles is expertly blended to evoke the tranquil beauty of dusk. 
+                    Crafted from high-quality natural beeswax and scented with a harmonious blend of lavender and jasmine, 
+                    these candles fill your space with a soft, comforting glow and a subtle floral fragrance. " >
+                    <img src="./imgs/candles_images/candles_mid (2).jpg" alt="" >
                 </div>
                 <div class="col-50">
                     <div class="paragraph">
@@ -205,7 +203,7 @@
                                 <span class="price_quant"><span class="text_title_product">Availability</span> : On Stock</span>
                             </div>
               
-                            <button class="button">Buy</button>
+                        
                         </div>
                      
                        
@@ -228,7 +226,13 @@
                     infused with soothing essential oils, offering a gentle fragrance that soothes the senses. "
                     > Read more</span>
                 </div>
-                <div class="img_container_scale_animation img_candles_container">
+                <div class="img_container_scale_animation img_candles_container modal_trigger_button"   data-id="2" 
+                    data-name="Tranquil Glow Duo" 
+                    data-image="./imgs/candles_images/candles_mid (1).jpg" 
+                    data-price="33£"
+                    data-desc="Embrace serenity with our Tranquil Glow Duo, a set of two delicately crafted candles designed to create a 
+                    calming ambiance in any space. Each candle is meticulously hand-poured with premium soy wax 
+                    infused with soothing essential oils, offering a gentle fragrance that soothes the senses. ">
                     <img src="./imgs/candles_images/candles_mid (1).jpg" alt="">
                 </div>
               
@@ -244,7 +248,90 @@
                                 <span class="price_quant"><span class="text_title_product">Availability</span> : On Stock</span>
                             </div>
               
-                            <button class="button">Buy</button>
+                   
+                        </div>
+                     
+                       
+                    </div>
+    
+                </div>
+
+            </div>
+            <div class="products_row products_row_white">
+                <div class="product_more_read_container"> 
+                  
+                    <span class="product_read modal_trigger_button"   
+                    data-id="9" 
+                    data-name="Sandalwood Serenity" 
+                    data-image="./imgs/candles_images/candle_grid_1.jpg" 
+                    data-price="27£"
+                    data-desc="Find inner peace and tranquility with the Sandalwood Serenity candle. Infused with the rich, 
+                    woody fragrance of sandalwood, this candle creates a serene ambiance that encourages relaxation and mindfulness.."
+                    > Read more</span>
+                </div>
+                <div class="img_container_scale_animation img_candles_container modal_trigger_button"   data-id="9" 
+                    data-name="Sandalwood Serenity" 
+                    data-image="./imgs/candles_images/candle_grid_1.jpg" 
+                    data-price="27£"
+                    data-desc="Find inner peace and tranquility with the Sandalwood Serenity candle. Infused with the rich, 
+                    woody fragrance of sandalwood, this candle creates a serene ambiance that encourages relaxation and mindfulness.."
+                    >
+                    <img src="./imgs/candles_images/candle_grid_1.jpg" alt="">
+                </div>
+              
+                <div class="col-50">
+                    <div class="paragraph">
+                        <h2>Sandalwood Serenity</h2>
+                        <p>Find inner peace and tranquility with the Sandalwood Serenity candle.... </p>
+                        <hr>
+                        <div class="price_button_container">
+                            <div class="price_quantity_container">
+                                <span class="price_quant"><span class="text_title_product">Price</span> : 27£</span>
+                                <span class="price_quant"><span class="text_title_product">Availability</span> : On Stock</span>
+                            </div>
+              
+                   
+                        </div>
+                     
+                       
+                    </div>
+    
+                </div>
+
+            </div>
+            <div class="products_row products_row_white">
+                <div class="product_more_read_container"> 
+                  
+                    <span class="product_read modal_trigger_button"   
+                    data-id="16" 
+                    data-name="Fresh Linen" 
+                    data-image="./imgs/candles_images/candle_add (5).jpg" 
+                    data-price="21£"
+                    data-desc="Bring the crisp scent of freshly laundered linens into your home with our Fresh Linen candle. 
+                    Light and airy, it creates an inviting ambiance reminiscent of a sunny spring day. "
+                    > Read more</span>
+                </div>
+                <div class="img_container_scale_animation img_candles_container modal_trigger_button"     data-id="16" 
+                    data-name="Fresh Linen" 
+                    data-image="./imgs/candles_images/candle_add (5).jpg" 
+                    data-price="21£"
+                    data-desc="Bring the crisp scent of freshly laundered linens into your home with our Fresh Linen candle...">
+                    <img src="./imgs/candles_images/candle_add (5).jpg" alt="">
+                </div>
+              
+                <div class="col-50">
+                    <div class="paragraph">
+                        <h2>Tranquil Glow Duo</h2>
+                        <p>Embrace serenity with our Tranquil Glow Duo, a set of two delicately crafted candles designed to create a 
+                        calming ambiance in any space... </p>
+                        <hr>
+                        <div class="price_button_container">
+                            <div class="price_quantity_container">
+                                <span class="price_quant"><span class="text_title_product">Price</span> : 33£</span>
+                                <span class="price_quant"><span class="text_title_product">Availability</span> : On Stock</span>
+                            </div>
+              
+                   
                         </div>
                      
                        
@@ -279,7 +366,56 @@
   
 
 
-    <?php include("./includes/contact_section.php")?>
+    <div class="section contact_section">
+        <h3 class="header">Get in touch</h3>
+        <div class="contact_container">
+         
+            
+            <div class="inputs_container_contact">
+                <form class="form_contact" method="POST">
+                    <input class="input-name-contact" required type="text" name="name" placeholder="Name">
+                    <input class="input-email-contact"requiredtype="text" name="email"  placeholder="Email">
+                    <textarea  class="input-message-contact"required name="message" id="" cols="30" rows="10" placeholder="MESSAGE">
+
+                    </textarea>
+                  
+                </form>
+                <button name="send_message" class="button send_message">Message</button>
+            </div>
+
+
+
+
+
+        
+
+            <div class="map_container">
+                <div class="direction_container">
+                    <span>random address</span>
+                    <span>0999999999</span>
+                    <span>random@yahoo.com</span>
+                   
+                </div>
+               
+                <img src="./imgs/WorldMap.svg" alt="">
+            </div>
+
+
+
+        </div>
+        <div class="message_send_container_form">
+            
+        </div>
+        
+
+
+
+     
+     
+    
+
+
+    </div>
 
     <?php include("./includes/footer.php")?>
  

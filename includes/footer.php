@@ -35,13 +35,14 @@
 </div>
       <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
       <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    </body>
- 
-   
+      
     <!-- <script src="./js/jquery.js"></script> -->
     <script src="./js/custom.js"></script>
     
 
+    </body>
+ 
+   
 
 <!-- display off and on all the class ".confidential" is user is not logged in  -->
 <?php if($_SESSION["user_logged"] === false) {

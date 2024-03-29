@@ -46,8 +46,8 @@
             <div class="login_basket_profile_container">
                 <div class="box profile_box trigger-drop-profile">
                 
-                    <img class="icon " src="./svgs/solid/profile.svg" alt="">
-                    <p class="trigger-drop"> Account</p>
+                    <img class="icon profile_icon_img <?php echo $_SESSION['user_logged']===true? 'active_account_profile_icon' : '';?>" src="./svgs/solid/profile.svg" alt="">
+                    <p class="trigger-drop <?php echo $_SESSION['user_logged']===true? 'active_account' : '';?>"> Account</p>
                 
                   
                     <div class="drop-down drop-down-profile">
@@ -90,8 +90,8 @@
                 <div class="box basket_box confidential trigger-drop-basket">
                     
                     <p class="products_counter_basket"><?php products_in_basket_counter() ?></p>
-                    <img class="icon" src="./svgs/solid/basket.svg" alt="">
-                    <p class="trigger-drop">Basket</p>
+                    <img class="icon <?php echo $_SESSION['user_logged']===true? 'active_account_profile_icon' : '';?>"  src="./svgs/solid/basket.svg" alt="">
+                    <p class="trigger-drop <?php echo $_SESSION['user_logged']===true? 'active_account' : '';?>">Basket</p>
 
 
                     <div class="drop-down drop-down-basket">
