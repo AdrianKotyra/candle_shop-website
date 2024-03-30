@@ -38,79 +38,83 @@
        
     </div>
     <div class="products_section_products">
-        <!-- <h3 class="header">Our lastest products</h3> -->
-       
-        <div class="search_bar_container ">
-            <div class="group_search">
-                <svg class="icon_search" aria-hidden="true" viewBox="0 0 24 24"><g><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path></g></svg>
-                <input placeholder="Search" type="search" class="input_search search-input">
-            </div>
-           
-            <div class="results_search"></div>
-            <div class="radio-inputs">
-                <a href="products.php?products=highest_price">
-                    <label class="highest_price_order_button">
-                       
+        <div class="search-container-box">
+            <img class="magnifier" src="./imgs/magnifier.svg" alt="">
+            <!-- <h3 class="header">Our lastest products</h3> -->
+        
+            <div class="search_bar_container">
+                <div class="group_search">
+                    <svg class="icon_search" aria-hidden="true" viewBox="0 0 24 24"><g><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path></g></svg>
+                    <input placeholder="Search" type="search" class="input_search search-input">
+                </div>
+            
+                <div class="results_search"></div>
+                <div class="radio-inputs">
+                    <a href="products.php?products=highest_price">
+                        <label class="highest_price_order_button">
+                        
+                                <span class="radio-tile">
+                                    <span class="radio-icon">
+                                        
+                                    </span>
+                                    <span class="radio-label"><?php 
+                                        if(isset($_GET["products"]) && $_GET["products"] === "highest_price") {
+                                            echo "<strong>Highest price</strong>";
+                                        } else {
+                                            echo "Highest price";
+                                        }
+                                    ?>
+                                </span>
+
+                        </label>
+
+                    </a>
+                    <a href="products.php?products=lowest_price">
+                        <label class="lowest_price_order">
+                            
                             <span class="radio-tile">
                                 <span class="radio-icon">
-                                    
+                            
                                 </span>
+                            
                                 <span class="radio-label"><?php 
-                                    if(isset($_GET["products"]) && $_GET["products"] === "highest_price") {
-                                        echo "<strong>Highest price</strong>";
+                                    if(isset($_GET["products"]) && $_GET["products"] === "lowest_price") {
+                                        echo "<strong>Lowest price</strong>";
                                     } else {
-                                        echo "Highest price";
+                                        echo "Lowest price";
                                     }
                                 ?>
+                                </span>
                             </span>
-
-                    </label>
-
-                </a>
-                <a href="products.php?products=lowest_price">
-                    <label class="lowest_price_order">
+                        </label>
+                    </a>
+                    <a href="products.php?products=alphabetical">
+                        <label>
                         
-                        <span class="radio-tile">
-                            <span class="radio-icon">
-                        
-                            </span>
-                          
-                            <span class="radio-label"><?php 
-                                if(isset($_GET["products"]) && $_GET["products"] === "lowest_price") {
-                                    echo "<strong>Lowest price</strong>";
-                                } else {
-                                    echo "Lowest price";
-                                }
-                            ?>
-                            </span>
-                        </span>
-                    </label>
-                </a>
-                <a href="products.php?products=alphabetical">
-                    <label>
-                    
-                        <span class="radio-tile">
-                            <span class="radio-icon">
-                          
-                            </span>
+                            <span class="radio-tile">
+                                <span class="radio-icon">
                             
-                            <span class="radio-label"><?php 
-                                if(isset($_GET["products"]) && $_GET["products"] === "alphabetical") {
-                                    echo "<strong>Alphabetical</strong>";
-                                } else {
-                                    echo "Alphabetical";
-                                }
-                            ?>
+                                </span>
+                                
+                                <span class="radio-label"><?php 
+                                    if(isset($_GET["products"]) && $_GET["products"] === "alphabetical") {
+                                        echo "<strong>Alphabetical</strong>";
+                                    } else {
+                                        echo "Alphabetical";
+                                    }
+                                ?>
+                                </span>
+                            
                             </span>
-                          
-                        </span>
-                    </label>
-                </a>
+                        </label>
+                    </a>
+                </div>
             </div>
         </div>
+        
       
         <div class="products_container_products">
-            
+        
             <div class="row no-gutters no-pad products_row_products">
                 
                 <?php 

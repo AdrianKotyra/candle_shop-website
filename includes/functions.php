@@ -252,7 +252,31 @@ function login_sessions(){
 }
         
     
-
+function get_sum_price_all_products(){
+    global $conn;
+    if(isset($_SESSION["user_basket"])) {
+        $candle_total_price_all_products = 0;
+        foreach ($_SESSION["user_basket"] as $key => $value) {
+            $sql = "SELECT * FROM products where id = '{$key}'"; 
+            $display_basket_products_name = mysqli_query($conn, $sql);
+            while($row = mysqli_fetch_array($display_basket_products_name)) {
+            
+                $candle_price=  $row["product_price"];
+              
+                // each product sum price
+                $candle_total_price = $candle_price*$value; 
+                // sum of each products sums price
+                $candle_total_price_all_products = $candle_total_price_all_products + $candle_price*$value; 
+                
+            }
+    
+         
+            
+        }
+        $_SESSION["sum_all_products"] = $candle_total_price_all_products;
+    }
+ 
+}
 
 function log_out(){
     if(isset($_GET["log_out"])) {

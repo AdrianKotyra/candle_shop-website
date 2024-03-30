@@ -2000,6 +2000,7 @@ a {
   padding-bottom: 50px;
 } 
 .products_container_products {
+
   display: block;
   cursor: pointer;
   margin: auto;
@@ -2494,23 +2495,33 @@ input::placeholder{
     height: 400px;  
   }
   .container_about_col {
+    position: relative;
     padding: 5% 0;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
   }
-  .search_bar_container {
-   
+  .search-container-box {
     border-radius: 1000px;
     padding: 10px;
     z-index: 0;
-    max-width: 200px;
+    width: 200px;
     float: right;
-    display: flex;
+   
     flex-direction: column;
     position: sticky;
     top : 79px !important;
     z-index: 333;
+  }
+
+  .search_bar_container {
+    animation : fadeInAnimationDropdown 0.3s forwards;
+    margin: 60px 0;
+  top: 200px;
+  right: 0;
+  flex-direction: column;
+
+  display: none;
   }
   .group_search {
     display: flex;
@@ -2555,6 +2566,17 @@ input::placeholder{
    }
    
    
+  .magnifier {
+    cursor: pointer;
+    float: right;
+    position: sticky;
+    left: 1rem;
+    fill: #9e9ea7;
+    
+    top: 100px;
+    width: 3rem;
+    height: 3rem;
+  }
    
    
    
@@ -2686,7 +2708,7 @@ input::placeholder{
   Resources
 
   .products_section_products{
- 
+    position: relative !important;
     padding: 5% 0% !important;
   }
 
@@ -3112,9 +3134,7 @@ input::placeholder{
   .buy_product_button {
   width: 160px;
   }
-  .search_bar_container  {
-    display: none;
-  }
+ 
   .search_bar_container * {
     width: 100%;
   }
