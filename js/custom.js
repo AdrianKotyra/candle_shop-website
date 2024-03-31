@@ -1,3 +1,102 @@
+
+
+function getProductTotal(elementId) {
+   
+    console.log(elementId)
+    $.ajax({
+        url: 'update_product_price.php',
+        type: 'POST',
+        data: {Id: elementId},
+        success: function(total_product) {
+            if (total_product) {
+                $(`.total-product-sum-single${elementId}`).html(total_product);
+                
+        
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("Error fetching products:", error);
+        }
+    });
+        
+   
+}
+
+function incrementDecrementBasket(elementId){
+       
+    
+    let plus_basket = document.querySelectorAll(".plus_basket");
+    let minus_basket = document.querySelectorAll(".minus_basket");
+
+    plus_basket ? plus_basket.forEach(plus => {
+        plus.addEventListener("click", function(){
+            let itemId = plus.getAttribute("data-id");
+            $.ajax({
+                url: 'increment_basket.php',
+                type: 'POST',
+                data: {elementId: itemId, plus_basket: "plus_basket"},
+                success: function(quantity) {
+                    if (quantity) {
+                        $(`.quantity${itemId}`).html(quantity);
+
+                        updateProductsCounterBasket(itemId);
+                        renderSumTotalProducts()
+                        getProductTotal(itemId)
+                        
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error fetching products:", error);
+                }
+            });
+        });
+    }) : null;
+
+    minus_basket ? minus_basket.forEach(minus => {
+        minus.addEventListener("click", function(){
+            let itemId = minus.getAttribute("data-id");
+            $.ajax({
+                url: 'increment_basket.php',
+                type: 'POST',
+                data: {elementId: itemId, minus_basket: "minus_basket"},
+                success: function(quantity) {
+                    if (quantity) {
+                        $(`.quantity${itemId}`).html(quantity);
+                        updateProductsCounterBasket(itemId);
+                        renderSumTotalProducts()
+                        getProductTotal(itemId)
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error fetching products:", error);
+                }
+            });
+        });
+    }) : null;
+
+ 
+
+      
+
+
+}
+
+function updateProductsCounterBasket(elementId) {
+    $.ajax({
+        url: 'get_user_products_number_basket.php',
+        data: {elementId:elementId},
+        type: 'POST',
+        success: function(basketNumberProducts) {
+            $(".products_counter_basket").html(basketNumberProducts);
+
+        },
+        error: function(xhr, status, error) {
+            console.error("Error fetching products:", error);
+        }
+    })
+}
+
+
 function dropDownSearchProducts(){
     const magnifier = document.querySelector(".magnifier");
     if(magnifier) {
@@ -143,7 +242,7 @@ hamburger ? hamburger.addEventListener("click",showMobile
    
 ) : null;
 
-
+// ------------------------------------------------------------------------------------------------------------------------
 function LoaderAjax(){
     $(document).ajaxStart(function(){
         $(".loader").css("display", "block")
@@ -156,8 +255,8 @@ showMobile()
 
 
 
-LoaderAjax()
 
+// ------------------------------------------------------------------------------------------------------------------------
 function renderPagination(){
     
     $.ajax({
@@ -801,8 +900,9 @@ function displayModal(buttonTriggers) {
                     displayModal(firstImagesOnTop, event);
                     renderSumTotalProducts()
                     deleteItemsBasket()
-          
-                  
+              
+               
+                    incrementDecrementBasket(elementId)
 
                                             
                 },
@@ -874,6 +974,7 @@ function displayModal(buttonTriggers) {
 
 
             }
+        
             
             incrementDecrementQuantity();
 
@@ -883,8 +984,8 @@ function displayModal(buttonTriggers) {
             buy_product_button.forEach(element => {
                 element.addEventListener("click", function(){
                     let quantityProductValue = document.querySelector(".quantity_product").value;
-                 
-                  
+                    LoaderAjax()
+                   
                     // ADD PRODUCTS TO THE BASKET SENDING AJAX ID PRODUCT 
                     $.ajax({
                     url: 'basket_products.php',
@@ -906,7 +1007,9 @@ function displayModal(buttonTriggers) {
                            
                       
                        
-                          
+                 
+                         
+                                
                          
                           
                             // resize modal to origin afer check out window
@@ -925,13 +1028,11 @@ function displayModal(buttonTriggers) {
                     }
                     })
     
-                    // UPDATE PRODUCTS NUMBER ON BASKET
-                   
-        
     
     
                     
                 })
+                
                 
             });
             
@@ -1035,6 +1136,60 @@ profileTriggers.forEach(elem=>elem.addEventListener("click", function(){
 
 displayProfileDropDown()
 
+function incrementDecrementBasketRunInit() {
+    
+    let plus_basket = document.querySelectorAll(".plus_basket");
+    let minus_basket = document.querySelectorAll(".minus_basket");
+
+    plus_basket ? plus_basket.forEach(plus => {
+        plus.addEventListener("click", function(){
+            let itemId = plus.getAttribute("data-id");
+            $.ajax({
+                url: 'increment_basket.php',
+                type: 'POST',
+                data: {elementId: itemId, plus_basket: "plus_basket"},
+                success: function(quantity) {
+                    if (quantity) {
+                        $(`.quantity${itemId}`).html(quantity);
+
+                        updateProductsCounterBasket(itemId);
+                        renderSumTotalProducts()
+                        getProductTotal(itemId)
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error fetching products:", error);
+                }
+            });
+        });
+    }) : null;
+
+    minus_basket ? minus_basket.forEach(minus => {
+        minus.addEventListener("click", function(){
+            let itemId = minus.getAttribute("data-id");
+            $.ajax({
+                url: 'increment_basket.php',
+                type: 'POST',
+                data: {elementId: itemId, minus_basket: "minus_basket"},
+                success: function(quantity) {
+                    if (quantity) {
+                        $(`.quantity${itemId}`).html(quantity);
+                        updateProductsCounterBasket(itemId);
+                        renderSumTotalProducts()
+                        getProductTotal(itemId)
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error fetching products:", error);
+                }
+            });
+        });
+    }) : null;
+}
+
+
+
+incrementDecrementBasketRunInit()
 // ------------------------------------------------------------------------------------------------------------------------
 function deleteItemsBasket() {
     const deleteItemsButton = document.querySelectorAll(".delete-item-icon");

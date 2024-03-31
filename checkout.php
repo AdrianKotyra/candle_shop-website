@@ -61,7 +61,7 @@
         <div class="card checkout">
           <label class="title">Checkout</label>
           <div class="details">
-            <span>Your cart subtotal:</span>
+            <span>Your cart subtotal: </span>
             <!-- <span>47.99$</span> -->
             <!-- <span>Discount through applied coupons:</span>
             <span>3.99$</span>
@@ -69,7 +69,7 @@
             <span>4.99$</span> -->
           </div>
           <div class="checkout--footer">
-            <label class="price"><sup>$</sup><?php  ?></label>
+            <label class="price"><sup><?php echo $_SESSION["sum_all_products"];?> £  </sup><?php  ?></label>
           
           </div>
         </div>

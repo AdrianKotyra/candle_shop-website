@@ -78,20 +78,28 @@ function Render_checkout_products(){
           </div>";
         }
 
-        // $_SESSION["sum_all_products"] = $candle_total_price_all_products; // Set the session variable for total price
+        $_SESSION["sum_all_products"] = $candle_total_price_all_products; // Set the session variable for total price
     }
 }
 
 function products_in_basket_counter() {
-    global $conn;
-    if($_SESSION["user_basket"] !=null) { 
-        if(count($_SESSION["user_basket"])>=1) {
-            echo count($_SESSION["user_basket"]);
-        }
 
+    global $conn;
+    if($_SESSION["user_basket"] !=null){ 
+
+        foreach ($_SESSION["user_basket"] as $key => $value) {
+            $number +=$value;
+        
+        }
+        echo $number;
+    } else {
+        null;
     }
-    
 }
+
+    
+    
+
 function Render_basket_products(){
     global $conn;
     if(isset($_SESSION["user_basket"]) && !empty($_SESSION["user_basket"])) { 
@@ -128,10 +136,10 @@ function Render_basket_products(){
                     <div class='price_quantity'> 
                         <p> price: $candle_price £ </p> 
                         <div class='quantity_container'>
-                        <button class='minus_basket incrementDecrementBasket'> - </button>
+                        <button   data-id='$candle_id' class='minus_basket incrementDecrementBasket'> - </button>
                     
-                        <p>quantity: $quantity </p> 
-                        <button class='plus_basket incrementDecrementBasket'> + </button> 
+                        <p>quantity:   <span class='quantity$candle_id'> $quantity</span> </p> 
+                        <button   data-id='$candle_id' class='plus_basket incrementDecrementBasket'> + </button> 
                     </div> 
                 </div>
               
@@ -140,7 +148,7 @@ function Render_basket_products(){
             </div>
                 <div class='total_price_container'> 
                     <p> total: </p> 
-                    <p>$candle_total_price £</p> 
+                    <p class='total-product-sum-single$candle_id'>$candle_total_price £</p> 
                 </div>
 
             </div>

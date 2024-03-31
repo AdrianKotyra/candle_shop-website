@@ -41,10 +41,10 @@ if(isset($_SESSION["user_basket"]) && !empty($_SESSION["user_basket"])) {
                 <div class='price_quantity'> 
                     <p> price: $candle_price £ </p> 
                     <div class='quantity_container'>
-                    <button class='minus_basket incrementDecrementBasket'> - </button>
+                    <button  data-id='$candle_id' class='minus_basket incrementDecrementBasket'> - </button>
                 
-                        <p>quantity: $quantity </p> 
-                    <button class='plus_basket incrementDecrementBasket'> + </button> 
+                    <p>quantity:   <span class='quantity$candle_id'> $quantity</span> </p> 
+                    <button  data-id='$candle_id' class='plus_basket incrementDecrementBasket'> + </button> 
                     </div>
                 
 
@@ -52,7 +52,7 @@ if(isset($_SESSION["user_basket"]) && !empty($_SESSION["user_basket"])) {
             </div>
             <div class='total_price_container'> 
                 <p> total: </p> 
-                <p>$candle_total_price £</p> 
+                <p class='total-product-sum-single$candle_id'>$candle_total_price £</p> 
             </div>
 
         </div>

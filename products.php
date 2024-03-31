@@ -37,6 +37,7 @@
       
        
     </div>
+
     <div class="products_section_products">
         <div class="search-container-box">
             <img class="magnifier" src="./imgs/magnifier.svg" alt="">
