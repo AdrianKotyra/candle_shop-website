@@ -2513,7 +2513,9 @@ input::placeholder{
     top : 79px !important;
     z-index: 333;
   }
-
+  .confidential {
+    display: none;
+  }
   .search_bar_container {
     animation : fadeInAnimationDropdown 0.3s forwards;
     margin: 60px 0;

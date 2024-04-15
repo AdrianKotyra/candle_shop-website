@@ -168,6 +168,7 @@ function user_not_logged_back_to_home(){
 }
 function init() {
     if(empty($_SESSION["user_logged"])) {
+        $_SESSION["user_basket"] = null;
         $_SESSION["user_logged"] = false;
         $_SESSION["user_login"] = null;
         $_SESSION["user_name"] =  null;
