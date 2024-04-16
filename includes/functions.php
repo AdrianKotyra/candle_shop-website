@@ -164,7 +164,11 @@ function Render_basket_products(){
 
 
 function user_not_logged_back_to_home(){
-    $_SESSION["user_logged"] === false? header("Location:index.php") : null;
+    if($_SESSION["user_logged"] === false) {
+        header("Location: index.php");
+      
+
+    }
 }
 function init() {
     if(empty($_SESSION["user_logged"])) {
@@ -210,34 +214,135 @@ function log_in() {
         global $conn;
         $name = trim($_POST["input-name"]);
         $password= trim($_POST["input-passowrd"]);
-        $query_login = "SELECT * from accounts_candles where user_email = '{$name}' and user_password='{$password}'";
+        $query_login = "SELECT * from accounts_candles where user_email = '{$name}' and user_password='{$password}' and status='false'";
         $find_user = mysqli_query($conn, $query_login);
         if(mysqli_num_rows($find_user)>=1) {
             
-            echo "<div class='alert alert-success col-lg-6 text-center mx-auto' role='alert'>
-            You have successufully logged in  " .$_SESSION['user_name']. ". </div>";
-            $_SESSION["user_logged"] = true;
-            $_SESSION["user_login"] = $name;
-            $_SESSION["user_password"] = $password;
+            echo "<div class='alert alert-warning col-lg-6 text-center mx-auto' role='alert'>
+            You have to activate your account ". $_SESSION['user_name']. " before log in. </div>";
+            return;
+          
         
 
         
-        } else {
+        }
+
+        $query_login_2 = "SELECT * from accounts_candles where user_email = '{$name}' and user_password='{$password}' and status='active'";
+        $find_user_active = mysqli_query($conn, $query_login_2);
+        if(mysqli_num_rows($find_user_active)>=1) {
+        
+            echo "<div class='alert alert-success col-lg-6 text-center mx-auto' role='alert'>
+            You have successfully logged in.
+            </div>";
+
+            $_SESSION["user_logged"] = true;
+            $_SESSION["user_login"] = $name;
+            $_SESSION["user_password"] = $password;
+            return;
+        }
+        else {
             echo "<div class='alert alert-warning col-lg-6 text-center mx-auto' role='alert'>
-            wrong credentials
+            Wrong credentials
             </div>";
         }
     
 
     }
 }
+
+function update_user_details(){
+    if(isset($_POST["update_acc"])) {
+        $errors = [];
+        $min = 3;
+        $max = 26;
+    
+      
+        global $conn;
+        $username= clean_string($_POST["name"]);
+        $lastname= clean_string($_POST["lastname"]);
+        $password= clean_string($_POST["password"]) ;
+        $email =clean_string($_POST["email"]) ;
+     
+        // $query_email = "SELECT * from accounts_candles where user_email = '{$email}'";
+        // $query_email_check = mysqli_query($conn, $query_email);
+        // if(mysqli_num_rows($query_email_check)>=1) {
+        //     $errors[] = "Account with $email email already exists";
+        // }
+
+        
+        if(strlen($username)<=$min) {
+
+            $errors[] = "Your username is too short, should be longer than $min characters";
+        }
+        if(strlen($username)>=$max) {
+
+            $errors[] = "Your username is too long, should be shorter than $max characters";
+        }
+        
+        if(strlen($lastname)<=$min) {
+        
+            $errors[] = "Your lastname is too short, should be longer than $min characters";
+        }
+        if(strlen($lastname)>=$max) {
+
+            $errors[] = "Your lastname is too long, should be shorter than $max characters";
+        }
+        if(strlen($email)>=$max) {
+
+            $errors[] = "Your email is too long, should be shorter than $max characters";
+        }
+       
+       
+        
+    
+        
+        if(!empty($errors)) {
+            foreach ($errors as $error) {
+                echo "
+                <div class='alert alert-danger col-lg-6 text-center mx-auto' role='alert'>
+                    $error
+                </div>";
+            }
+        } 
+        if(empty($errors)) {
+            
+            // echo "fdsfdsfds";
+            $query_update = "UPDATE accounts_candles SET ";
+            $query_update .= "user_name = '{$username}', ";
+            $query_update .= "user_lastname = '{$lastname}', ";
+            $query_update .= "user_password = '{$password}', ";
+            $query_update .= "user_email   = '{$email}' WHERE user_email = '{$_SESSION['user_login']}'";
+            
+            $_SESSION["user_basket"] = [];
+            $_SESSION["user_login"] = $email;
+            $_SESSION["user_name"] =  $username;
+            $_SESSION["user_lastname"] =  $lastname;
+            $_SESSION["user_password"] = $password;
+
+        
+            $result = mysqli_query($conn, $query_update);
+            echo "
+            <div class='alert alert-success col-lg-6 text-center mx-auto' role='alert'>
+                Your details have been updated.
+            </div>";
+            
+        }
+        
+        
+        
+
+    }   
+}
+
+
+
 function login_sessions(){
 
     if(isset($_POST["submit_login"])) {
         global $conn;
         $name = trim($_POST["input-name"]);
         $password= trim($_POST["input-passowrd"]);
-        $query_login = "SELECT * from accounts_candles where user_email = '{$name}' and user_password='{$password}'";
+        $query_login = "SELECT * from accounts_candles where user_email = '{$name}' and user_password='{$password}' and status='active'";
 
         $find_user = mysqli_query($conn, $query_login);
         if($find_user!==null) {
@@ -296,6 +401,7 @@ function log_out(){
         $_SESSION["user_lastname"] = null;
         $_SESSION["user_password"] = null;
         $_SESSION["sum_all_products"] = null;
+        
     }
 }
 

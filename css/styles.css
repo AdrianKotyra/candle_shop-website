@@ -111,7 +111,7 @@ body {
   position: fixed;
   bottom: 10px;
   right: 10px;
-  width: 150px;
+  width: 160px;
   z-index: 999;
   background-color: var(--elements);
 
@@ -1004,7 +1004,7 @@ padding-top: 10px;
 }
 .basket_drop {
   position: relative;
-  max-height: 80vh !important;
+  max-height: 60vh !important;
   overflow-x: hidden;
   min-height: 30vh !important;
   overflow-y: scroll;
@@ -3006,8 +3006,8 @@ input::placeholder{
   .modal_container {
     border-radius: 0%;
     top: 30%;
-    width: 100%;
-    height: 100%;
+    width: 100% !important;
+    width: 100% !important;
   }
   .images_container_paragraph img {
     width: 50vw;

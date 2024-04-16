@@ -1,7 +1,8 @@
 <?php session_start()?>
 <?php include("./includes/functions.php")?>
-<?php init()?>
 <?php log_out()?>
+<?php init()?>
+
 
 
 

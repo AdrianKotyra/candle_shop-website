@@ -43,7 +43,8 @@
     
   
   <div class="section">
-    <form method="POST" action="registration.php">
+    <?php update_user_details()?>
+    <form method="POST" action="settings_user.php">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
           <div class="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0">
             <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -79,7 +80,7 @@
                 </div>
                 
 
-                <button name="create_acc" class="w-full bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  focus:ring-blue-800 text-white button_registration" type="submit">
+                <button name="update_acc" class="w-full bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  focus:ring-blue-800 text-white button_registration" type="submit">
                   Update
                 </button>
               
@@ -88,7 +89,8 @@
         </div>
       </form>
     </div>
- 
+  </div>
+
 
 
 

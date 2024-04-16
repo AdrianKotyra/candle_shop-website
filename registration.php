@@ -128,7 +128,7 @@
 
 
 
-      <?php include("./includes/footer.php")?>
-      <script src="https://cdn.tailwindcss.com"></script>
+    <?php include("./includes/footer.php")?>
+    <script src="https://cdn.tailwindcss.com"></script>
       
 </body>
